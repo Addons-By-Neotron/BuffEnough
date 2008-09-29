@@ -1,0 +1,32 @@
+## Interface: 20400
+## Title: BuffEnough
+## Notes: Personal buff monitor - are you buff enough?
+## Author: Nikkodemus
+## Version: 1.0
+## DefaultState: enabled
+## X-Category: Buffs
+## OptionalDeps: Ace3, LibGratuity-3.0, LibLogger-1.0, LibTalentQuery-1.0
+## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0
+## SavedVariables: BuffEnoughDB
+
+embeds.xml
+LibDataBroker-1.1.lua
+Locales.xml
+
+BuffEnough.lua
+Spells.lua
+Config.lua
+
+ClassBase.lua
+Classes\Druid.lua
+Classes\Hunter.lua
+Classes\Mage.lua
+Classes\Paladin.lua
+Classes\Priest.lua
+Classes\Rogue.lua
+Classes\Shaman.lua
+Classes\Warlock.lua
+Classes\Warrior.lua
+
+Frame.lua
+
