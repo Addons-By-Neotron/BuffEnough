@@ -85,9 +85,6 @@ L["Color to display when you are buffs are at a warning level"] = true
 L["Check Pet Buffs"] = true
 L["Check pet for the same raid buffs as the player"] = true
 
-L["Force Demonic Sacrifice"] = true
-L["When the warlock has 21 points in Demonology for Demonic Sacrifice, check for buff and not pet"] = true
-
 L["Profile: %s"] = true
 
 -- gear
@@ -136,10 +133,9 @@ L["Currently disabled"] = true
 -- buffs
 
 L["Mage/Molten Armor"] = true
+L["Fel/Demon Armor"] = true
 L["Aspect"] = true
 L["Elemental Shield"] = true
-L["Demonic Sacrifice"] = true
-L["Windfury"] = true
 L["Flask/Elixirs"] = true
 L["Flask of"] = true
 L["of Shattrath"] = true

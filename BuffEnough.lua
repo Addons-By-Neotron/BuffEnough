@@ -59,7 +59,6 @@ function BuffEnough:OnInitialize()
 	self.partyClassCount = {}
 	self.talents = {}
 	self.talentsAvailable = {}
-	self.durations = {}
 	self.lastBuffer = {}
 	self.playerIsTank = false
 		
@@ -283,8 +282,8 @@ function BuffEnough:ScanRaidParty()
 	if self.debug then self:debug("Checking raid/party makeup") end
 
 	-- Initialize
-	self.raidClassCount = {DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
-	self.partyClassCount = {DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
+	self.raidClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
+	self.partyClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
 	self.talentsAvailable = {}
 
 	local unit = nil
@@ -368,20 +367,9 @@ function BuffEnough:CheckBuffs()
 	while true do
 	
 		local category = L["Buffs"]
-		local buffIndex = select(1, GetPlayerBuff(i, "HELPFUL"))
-		if buffIndex == 0 then break end
-		
-		local buff = select(1, GetPlayerBuffName(buffIndex))
-		local timeLeft = GetPlayerBuffTimeLeft(buffIndex)
-
-		-- Determine duration for buff, if we've seen this before
-		local duration = timeLeft + 1
-		
-		if self.durations[buff] and duration < self.durations[buff] then
-			duration = self.durations[buff]
-		else
-			self.durations[buff] = duration
-		end
+		local buff, _, _, _, _, duration, expTime, _, _ = UnitBuff("player", i)
+		if not buff then break end
+		local timeLeft = expTime and (expTime - GetTime()) or 0
 
 		-- Map if this a longer version of a buff (eg. greater blessing vs regular blessing)
 		if self.spellMap[buff] then
@@ -394,7 +382,7 @@ function BuffEnough:CheckBuffs()
 		-- Remap for flask/battle/guardian elixir
 		if not self.knownSpells[buff] and checkingConsumables then
 
-			G:SetPlayerBuff(buffIndex)
+			G:SetUnitBuff("player", i)
 
 			if (string.find(buff, L["Flask of"]) or
 					string.find(buff, L["of Shattrath"]) or
@@ -431,10 +419,6 @@ function BuffEnough:CheckBuffs()
 	-- What buffs should we expect (or not expect) in general
 	self:TrackItem(L["Buffs"], self.spells["Crusader Aura"], false, false, true)
 	self:TrackItem(L["Buffs"], self.spells["Aspect of the Pack"], false, false, true)
-
-	if self.playerIsTank then
-		self:TrackItem(L["Buffs"], self.spells["Blessing of Salvation"], false, false, true)
-	end
 
 	if self.raidClassCount["DRUID"] > 0 then
 		self:TrackItem(L["Buffs"], self.spells["Mark of the Wild"], false, true)
@@ -574,14 +558,10 @@ function BuffEnough:CheckGear()
 	
 	if checkingConsumables and self:GetProfileParam("weapon") then
 	
+		self:TrackItem(L["Consumables"], L["Mainhand Buff"], false, true)
+	
 		if OffhandHasWeapon() then
 			self:TrackItem(L["Consumables"], L["Offhand Buff"], false, true)
-		end
-		
-		if ((self.partyClassCount["SHAMAN"] > 0) and self:GetModule("Player"):CanBenefitFromWF()) then
-			self:TrackItem(L["Consumables"], L["Mainhand Buff"], false, false, true)
-		else
-			self:TrackItem(L["Consumables"], L["Mainhand Buff"], false, true)
 		end
 		
 	end
@@ -596,14 +576,7 @@ function BuffEnough:CheckGear()
 	end
 
 	if hasMHEnchant then
-	
-		G:SetInventoryItem("player", select(1,GetInventorySlotInfo("MainHandSlot")))
-		local hasWindfury = G:Find(L["Windfury"])
-		
-		if not hasWindfury then
-			self:TrackItem(L["Consumables"], L["Mainhand Buff"], true, false, false, 3600, mhExp)
-		end
-		
+		self:TrackItem(L["Consumables"], L["Mainhand Buff"], true, false, false, 3600, mhExp)
 	end
 	
 	-- Check for temporary chest enchants
@@ -978,8 +951,8 @@ function BuffEnough:TalentQuery_Ready(_, name)
 	if self.trace then self:trace("Talent query for %s %s %s", unitClass, name, tostring(isNotPlayer)) end
 
 	if unitClass == "PALADIN" then
-		self:DoTalentQuery(name, self.spells["Blessing of Kings"], 2, 6, isNotPlayer)
-		self:DoTalentQuery(name, self.spells["Blessing of Sanctuary"], 2, 14, isNotPlayer)
+		self:DoTalentQuery(name, self.spells["Blessing of Kings"], 2, 1, isNotPlayer)
+		self:DoTalentQuery(name, self.spells["Blessing of Sanctuary"], 2, 12, isNotPlayer)
 	elseif unitClass == "PRIEST" then
 		self:DoTalentQuery(name, self.spells["Divine Spirit"], 1, 14, isNotPlayer)
 	end
@@ -1054,8 +1027,8 @@ function BuffEnough:RecordLastBuffer(_, _, eventType, srcGUID, srcName, _, dstGU
 		if dstGUID == UnitGUID("player") or
 		   -- or it's a paladin blessing cast on the same class as the player
 		   (self.blessings[spellName] and dstName and select(2, UnitClass(dstName)) == select(2, UnitClass("player"))) or
-		   -- or it's a group buff cast on the same group as the player
-		   (self.groupBuffs[spellName] and dstName and UnitInParty(dstName))
+		   -- or it's a raid/party-wide buff 
+		   (self.groupBuffs[spellName])
 		then
 		
 			if self.spellMap[spellName] then

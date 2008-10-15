@@ -35,9 +35,7 @@ end
 
 local blessingsDropdown = {}
 blessingsDropdown[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["Blessing of Kings"]
-blessingsDropdown[BuffEnough.spells["Blessing of Light"]] = BuffEnough.spells["Blessing of Light"]
 blessingsDropdown[BuffEnough.spells["Blessing of Might"]] = BuffEnough.spells["Blessing of Might"]
-blessingsDropdown[BuffEnough.spells["Blessing of Salvation"]] = BuffEnough.spells["Blessing of Salvation"]
 blessingsDropdown[BuffEnough.spells["Blessing of Sanctuary"]] = BuffEnough.spells["Blessing of Sanctuary"]
 blessingsDropdown[BuffEnough.spells["Blessing of Wisdom"]] = BuffEnough.spells["Blessing of Wisdom"]
 blessingsDropdown[L["None"]] = L["None"]
@@ -206,26 +204,6 @@ BuffEnough.options = {
 					values = blessingsDropdown,
 					set = function(info, v)
 							BuffEnough:SetProfileParam("blessing4", v)
-							BuffEnough:RunCheck()
-						  end	
-				},
-				blessing5 = {
-					type = "select",
-					name = L["Blessing"].."5",
-					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
-					values = blessingsDropdown,
-					set = function(info, v)
-							BuffEnough:SetProfileParam("blessing5", v)
-							BuffEnough:RunCheck()
-						  end	
-				},
-				blessing6 = {
-					type = "select",
-					name = L["Blessing"].."6",
-					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
-					values = blessingsDropdown,
-					set = function(info, v)
-							BuffEnough:SetProfileParam("blessing6", v)
 							BuffEnough:RunCheck()
 						  end	
 				},
@@ -444,48 +422,7 @@ BuffEnough.options = {
 									BuffEnough:RunCheck()
 								  end	
 						},
-						petblessing5 = {
-							type = "select",
-							name = L["Blessing"].."5",
-							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
-							values = blessingsDropdown,
-							set = function(info, v)
-									BuffEnough:SetProfileParam("petblessing5", v)
-									BuffEnough:RunCheck()
-								  end	
-						},
-						petblessing6 = {
-							type = "select",
-							name = L["Blessing"].."6",
-							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
-							values = blessingsDropdown,
-							set = function(info, v)
-									BuffEnough:SetProfileParam("petblessing6", v)
-									BuffEnough:RunCheck()
-								  end	
-						},
 					},
-				},
-			},
-		},
-		warlock = {
-			type = "group",
-			name = select(1, UnitClass("player")),
-			set = "SetProfileParam",
-			get = "GetProfileParam",
-			order = 50,
-			cmdHidden = true,
-			guiHidden = true,
-			args = {
-				forcedemonicsac = {
-					type = "toggle",
-					name = L["Force Demonic Sacrifice"],
-					desc = L["When the warlock has 21 points in Demonology for Demonic Sacrifice, check for buff and not pet"],
-					width = "full",
-					set = function(info, v)
-							BuffEnough:SetProfileParam("forcedemonicsac", v)
-							BuffEnough:RunCheck()
-						  end
 				},
 			},
 		},
@@ -673,7 +610,6 @@ BuffEnough.defaults = {
 		warnbuffcolorb = 0,
 		petbuffs = false,
 		petfood = false,
-		forcedemonicsac = true,
 	},
 }
 

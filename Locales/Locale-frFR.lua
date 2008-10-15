@@ -86,9 +86,6 @@ L["Color to display when you are buffs are at a warning level"] = true
 L["Check Pet Buffs"] = true
 L["Check pet for the same raid buffs as the player"] = true
 
-L["Force Demonic Sacrifice"] = true
-L["When the warlock has 21 points in Demonology for Demonic Sacrifice, check for buff and not pet"] = true
-
 L["Profile: %s"] = true
 
 -- gear
@@ -117,30 +114,29 @@ L["Rune of Warding"] = true
 
 -- tooltip output
 
-L["Buffs"] = "Buffs"
-L["Gear"] = "Equipement"
-L["Pet"] = "Familier"
+L["Buffs"] = true
+L["Gear"] = true
+L["Pet"] = true
 
-L["Missing"] = "Manquant"
-L["Broken"] = "Cassé"
-L["Unexpected"] = "Inattendu"
-L["Low"] = "Bas"
-L["Unhappy"] = "Mécontent"
+L["Missing"] = true
+L["Broken"] = true
+L["Unexpected"] = true
+L["Low"] = true
+L["Unhappy"] = true
 
-L["Aura"] = "Aura"
+L["Aura"] = true
 
-L["Hint"] = "\n\n|cffafa4ffAstuce:|r |cffffffffClic gauche pour lancer la vérification|r\n|cffafa4ffAstuce:|r |cffffffffClic droit pour rapporter les buffs manquants|r\n|cffafa4ffAstuce:|r |cffffffffShift-clic droit pour chuchoter les buffs manquants|r"
-L["No buffer known for "] = "Pas de buffer connu pour"
-L["All buffs accounted for!"] = "Pas de buffs nécessaires!"
-L["Currently disabled"] = "Actuellement désactive"
+L["Hint"] = "\n\n|cffafa4ffHint:|r |cffffffffLeft-click to run check|r\n|cffafa4ffHint:|r |cffffffffRight-click to report missing buffs|r\n|cffafa4ffHint:|r |cffffffffShift-right-click to whisper missing buffs|r"
+L["No buffer known for "] = true
+L["All buffs accounted for!"] = true
+L["Currently disabled"] = true
 
 -- buffs
 
 L["Mage/Molten Armor"] = true
+L["Fel/Demon Armor"] = true
 L["Aspect"] = true
 L["Elemental Shield"] = true
-L["Demonic Sacrifice"] = true
-L["Windfury"] = true
 L["Flask/Elixirs"] = true
 L["Flask of"] = true
 L["of Shattrath"] = true

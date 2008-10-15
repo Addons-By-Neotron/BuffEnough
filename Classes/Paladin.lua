@@ -46,22 +46,6 @@ end
 
 
 --[[ ---------------------------------------------------------------------------
-     Determine whether or not player benefits from Windfury
------------------------------------------------------------------------------ ]]
-function Paladin:CanBenefitFromWF()
-
-    local canBenefit = false
-
-    if select(3, GetTalentTabInfo(3)) > 30 then
-        canBenefit = true
-    end
-
-    return canBenefit
-
-end
-
-
---[[ ---------------------------------------------------------------------------
      Formulate priority list for paladin blessings
 ----------------------------------------------------------------------------- ]]
 function Paladin:GetPaladinBlessingList()
@@ -69,11 +53,11 @@ function Paladin:GetPaladinBlessingList()
 	if GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0 then
 		return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"]}
     elseif select(3, GetTalentTabInfo(1)) > 30 then
-        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"], BuffEnough.spells["Blessing of Might"]}
+        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Might"]}
     elseif select(3, GetTalentTabInfo(2)) > 30 then
-        return {BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+        return {BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Might"]}
     else
-        return {BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+        return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
     end
 
 end

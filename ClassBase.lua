@@ -33,7 +33,7 @@ function prototype:CheckPaladinBlessings()
     local paladinBlessings = {}
 
     if BuffEnough:GetProfileParam("overrideblessings") then
-        for i=1,6 do
+        for i=1,4 do
             paladinBlessings[i] = BuffEnough:GetProfileParam("blessing"..i)
         end
     else
@@ -47,11 +47,9 @@ function prototype:CheckPaladinBlessings()
         if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
 
         if blessing and blessing ~= L["None"] then
-            if (((blessing == BuffEnough.spells["Blessing of Salvation"]) and (not BuffEnough.playerIsTank)) or
-                ((blessing == BuffEnough.spells["Blessing of Sanctuary"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]])) or
+            if (((blessing == BuffEnough.spells["Blessing of Sanctuary"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]])) or
                 ((blessing == BuffEnough.spells["Blessing of Kings"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Kings"]])) or
-                (blessing ~= BuffEnough.spells["Blessing of Salvation"] and
-                 blessing ~= BuffEnough.spells["Blessing of Sanctuary"] and
+                (blessing ~= BuffEnough.spells["Blessing of Sanctuary"] and
                  blessing ~= BuffEnough.spells["Blessing of Kings"]))
             then
 
@@ -112,7 +110,7 @@ function prototype:CheckPetPaladinBlessings()
     local paladinBlessings = {}
 
     if BuffEnough:GetProfileParam("petoverrideblessings") then
-        for i=1,6 do
+        for i=1,4 do
             paladinBlessings[i] = BuffEnough:GetProfileParam("petblessing"..i)
         end
     else
@@ -154,15 +152,15 @@ function prototype:GetPetPaladinBlessingList()
 
     -- hunter pet
     if powerType == 2 then
-    	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+    	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
     	
     -- imp
     elseif powerType == 0 and select(2, UnitClass("pet")) == "MAGE"  then
-    	return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+    	return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
     	
     -- all other warlock pets
     else 
-       	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+       	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
     end
 
 end
@@ -172,7 +170,6 @@ end
      Functions to be overriden by the prototype implementation
 ----------------------------------------------------------------------------- ]]
 prototype.CheckClassBuffs = function() end
-prototype.CanBenefitFromWF = function() return false end
 prototype.GetPaladinBlessingList = function() end
 
 

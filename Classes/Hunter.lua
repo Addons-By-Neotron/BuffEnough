@@ -33,7 +33,7 @@ function Hunter:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking hunter buffs") end
     
-    local trueshotAura = select(5, GetTalentInfo(2, 17, false))
+    local trueshotAura = select(5, GetTalentInfo(2, 19, false))
 
     if trueshotAura > 0 then
         BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Trueshot Aura"], false, true, false, nil, nil, true)
@@ -60,6 +60,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function Hunter:GetPaladinBlessingList()
 
-    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
 
 end

@@ -42,6 +42,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function Priest:GetPaladinBlessingList()
 
-    return {BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+    return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
 
 end
