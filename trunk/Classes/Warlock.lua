@@ -23,7 +23,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local Warlock = BuffEnough:GetOrCreateModule("Player")
 
 BuffEnough.options.args.pet.guiHidden = false
-BuffEnough.options.args.warlock.guiHidden = false
 
 
 --[[ ---------------------------------------------------------------------------
@@ -33,23 +32,12 @@ function Warlock:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking warlock buffs") end
 
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Fel Armor"], false, true, false, nil, nil, true)
+    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Fel/Demon Armor"], false, true, false, nil, nil, true)
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Might"], false, false, true)
 
-    local demonicSac = select(5, GetTalentInfo(2, 14, false))
-    local numDemoTalents = select(3, GetTalentTabInfo(2))
-
-    if ((demonicSac > 0) and (numDemoTalents == 21) and BuffEnough:GetProfileParam("forcedemonicsac")) then
-    
-       BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Demonic Sacrifice"], false, true, false, nil, nil, true)
-        
-    elseif ((not UnitExists("pet")) and (not IsMounted()) and (not BuffEnough.HasTrackedItem(L["Buffs"], BuffEnough.spells["Demonic Sacrifice"]))) then
+    if ((not UnitExists("pet")) and (not IsMounted())) then
     
         BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
-        
-    elseif UnitExists("pet") and select(2, UnitClass("pet")) == "MAGE" then
-    
-        BuffEnough:TrackItem(L["Pet"], BuffEnough.spells["Phase Shift"], false, true, false, nil, nil, true)
         
     end
     
@@ -64,7 +52,7 @@ end
 ----------------------------------------------------------------------------- ]]
 function Warlock:GetPaladinBlessingList()
 
-    return {BuffEnough.spells["Blessing of Salvation"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Light"]}
+    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
 
 end
 

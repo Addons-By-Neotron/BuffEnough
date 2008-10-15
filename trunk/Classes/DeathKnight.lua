@@ -18,33 +18,33 @@ along with BuffEnough.  If not, see <http://www.gnu.org/licenses/>.
 ----------------------------------------------------------------------------- ]]
 
 
-if select(2, UnitClass("player")) ~= "DRUID" then return end 
+if select(2, UnitClass("player")) ~= "DEATHKNIGHT" then return end 
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
-local Druid = BuffEnough:GetOrCreateModule("Player")
+local DeathKnight = BuffEnough:GetOrCreateModule("Player")
 
 
 --[[ ---------------------------------------------------------------------------
      Check class buffs
 ----------------------------------------------------------------------------- ]]
-function Druid:CheckClassBuffs()
+function DeathKnight:CheckClassBuffs()
 
-    if BuffEnough.debug then BuffEnough:debug("Checking druid buffs") end
+    if BuffEnough.debug then BuffEnough:debug("Checking deathknight buffs") end
+    
+    if UnitAffectingCombat("player") then
+     
+		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
+        
+    end
 
 end
 
 --[[ ---------------------------------------------------------------------------
      Formulate priority list for paladin blessings
 ----------------------------------------------------------------------------- ]]
-function Druid:GetPaladinBlessingList()
+function DeathKnight:GetPaladinBlessingList()
 
-    if select(3, GetTalentTabInfo(1)) > 30 then
-        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Might"]}
-    elseif select(3, GetTalentTabInfo(2)) > 30 then
-        return {BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"]}
-    else
-        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Might"]}
-    end
+    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
 
 end
 
