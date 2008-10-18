@@ -51,7 +51,7 @@ BuffEnough.spells["Aspect of the Wild"] = GetSpellInfo(20043)
 BuffEnough.spells["Aspect of the Hawk"] = GetSpellInfo(13165)
 BuffEnough.spells["Aspect"] = L["Aspect"]
 
-BuffEnough.spells["Trueshot Aura"] = GetSpellInfo(27066)
+BuffEnough.spells["Trueshot Aura"] = GetSpellInfo(19506)
 
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Monkey"]] = BuffEnough.spells["Aspect"]
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Viper"]] = BuffEnough.spells["Aspect"]
