@@ -166,7 +166,7 @@ BuffEnough.spellMap[BuffEnough.spells["\"Well Fed\""]] = BuffEnough.spells["Well
 -- Gear
 BuffEnough.spells["Riding Crop"] = GetItemInfo(25653)
 BuffEnough.spells["Skybreaker Whip"] = GetItemInfo(32863)
-BuffEnough.spells["Fishing Pole"] = GetItemInfo(6256)
+BuffEnough.spells["Fishing Pole"] = GetSpellInfo(7738)
 BuffEnough.spells["Blessed Medallion of Karabor"] = GetItemInfo(32757)
 
 -- Index what we know about
