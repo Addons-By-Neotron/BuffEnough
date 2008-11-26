@@ -49,6 +49,7 @@ BuffEnough.spells["Aspect of the Monkey"] = GetSpellInfo(13163)
 BuffEnough.spells["Aspect of the Viper"] = GetSpellInfo(34074)
 BuffEnough.spells["Aspect of the Wild"] = GetSpellInfo(20043)
 BuffEnough.spells["Aspect of the Hawk"] = GetSpellInfo(13165)
+BuffEnough.spells["Aspect of the Dragonhawk"] = GetSpellInfo(61847)
 BuffEnough.spells["Aspect"] = L["Aspect"]
 
 BuffEnough.spells["Trueshot Aura"] = GetSpellInfo(19506)
@@ -57,6 +58,7 @@ BuffEnough.spellMap[BuffEnough.spells["Aspect of the Monkey"]] = BuffEnough.spel
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Viper"]] = BuffEnough.spells["Aspect"]
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Wild"]] = BuffEnough.spells["Aspect"]
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Hawk"]] = BuffEnough.spells["Aspect"]
+BuffEnough.spellMap[BuffEnough.spells["Aspect of the Dragonhawk"]] = BuffEnough.spells["Aspect"]
 
 -- Mages
 BuffEnough.spells["Arcane Intellect"] = GetSpellInfo(1459)
