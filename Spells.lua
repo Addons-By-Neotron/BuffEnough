@@ -63,15 +63,20 @@ BuffEnough.spellMap[BuffEnough.spells["Aspect of the Dragonhawk"]] = BuffEnough.
 -- Mages
 BuffEnough.spells["Arcane Intellect"] = GetSpellInfo(1459)
 BuffEnough.spells["Arcane Brilliance"] = GetSpellInfo(23028)
+BuffEnough.spells["Dalaran Intellect"] = GetSpellInfo(61024)
+BuffEnough.spells["Dalaran Brilliance"] = GetSpellInfo(61316)
 BuffEnough.spells["Mage Armor"] = GetSpellInfo(6117)
 BuffEnough.spells["Molten Armor"] = GetSpellInfo(30482)
 BuffEnough.spells["Mage/Molten Armor"] = L["Mage/Molten Armor"]
 
 BuffEnough.spellMap[BuffEnough.spells["Arcane Brilliance"]] = BuffEnough.spells["Arcane Intellect"]
+BuffEnough.spellMap[BuffEnough.spells["Dalaran Intellect"]] = BuffEnough.spells["Arcane Intellect"]
+BuffEnough.spellMap[BuffEnough.spells["Dalaran Brilliance"]] = BuffEnough.spells["Arcane Intellect"]
 BuffEnough.spellMap[BuffEnough.spells["Mage Armor"]] = BuffEnough.spells["Mage/Molten Armor"]
 BuffEnough.spellMap[BuffEnough.spells["Molten Armor"]] = BuffEnough.spells["Mage/Molten Armor"]
 
 BuffEnough.groupBuffs[BuffEnough.spells["Arcane Brilliance"]] = true
+BuffEnough.groupBuffs[BuffEnough.spells["Dalaran Brilliance"]] = true
 
 -- Paladins
 BuffEnough.spells["Blessing of Kings"] = GetSpellInfo(20217)
