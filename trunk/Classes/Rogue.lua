@@ -32,6 +32,9 @@ function Rogue:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking rogue buffs") end
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Wisdom"], false, false, true)
+    
+    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false)
+	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
 
 end
 

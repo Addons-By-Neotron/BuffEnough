@@ -27,6 +27,8 @@ BuffEnough.spellMap = {}
 BuffEnough.blessings = {}
 BuffEnough.groupBuffs = {}
 BuffEnough.flasks = {}
+BuffEnough.battleElixirs = {}
+BuffEnough.guardianElixirs = {}
 
 -- Death Knights
 
@@ -152,10 +154,20 @@ BuffEnough.spells["Flask/Elixirs"] = L["Flask/Elixirs"]
 BuffEnough.spells["Battle Elixir"] = L["Battle Elixir"]
 BuffEnough.spells["Guardian Elixir"] = L["Guardian Elixir"]
 
-BuffEnough.flasks["Chromatic Resistance"] = GetSpellInfo(17629)
-BuffEnough.flasks["Chromatic Wonder"] = GetSpellInfo(33208)
-BuffEnough.flasks["Distilled Wisdom"] = GetSpellInfo(17627)
-BuffEnough.flasks["Supreme Power"] = GetSpellInfo(17628)
+BuffEnough.flasks[GetSpellInfo(17629)] = "Chromatic Resistance"
+BuffEnough.flasks[GetSpellInfo(33208)] = "Chromatic Wonder"
+BuffEnough.flasks[GetSpellInfo(17627)] = "Distilled Wisdom"
+BuffEnough.flasks[GetSpellInfo(17628)] = "Supreme Power"
+
+BuffEnough.battleElixirs[GetSpellInfo(60344)] = "Expertise"
+BuffEnough.battleElixirs[GetSpellInfo(28497)] = "Mighty Agility"
+BuffEnough.battleElixirs[GetSpellInfo(54494)] = "Major Agility"
+BuffEnough.battleElixirs[GetSpellInfo(60340)] = "Accuracy"
+BuffEnough.battleElixirs[GetSpellInfo(60345)] = "Armor Piercing"
+BuffEnough.battleElixirs[GetSpellInfo(60341)] = "Deadly Strikes"
+BuffEnough.battleElixirs[GetSpellInfo(60346)] = "Lightning Speed"
+
+BuffEnough.guardianElixirs[GetSpellInfo(60347)] = "Mighty Thoughts"
 
 BuffEnough.spells["Well Fed"] = GetSpellInfo(33263)
 BuffEnough.spells["\"Well Fed\""] = GetSpellInfo(44106)

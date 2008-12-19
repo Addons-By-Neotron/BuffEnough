@@ -239,17 +239,6 @@ BuffEnough.options = {
 							BuffEnough:RunCheck()
 						  end	
 				},
-				weapon = {
-					type = "toggle",
-					name = L["Check Weapon"],
-					desc = L["Check whether or not you have a temporary weapon enchant"],
-					width = "full",
-					order = 3,
-					set = function(info, v)
-							BuffEnough:SetProfileParam("weapon", v)
-							BuffEnough:RunCheck()
-						  end	
-				},
 				chest = {
 					type = "toggle",
 					name = L["Check Chest"],
@@ -591,7 +580,6 @@ BuffEnough.defaults = {
 		petoverrideblessings = false,
 		flask = true,
 		food = true,
-		weapon = true,
 		chest = false,
 		consumablesinraid = true,
 		custom = {},
