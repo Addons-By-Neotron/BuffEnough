@@ -180,7 +180,7 @@ function BuffEnough:DoEnable()
 	self:RegisterEvent("ZONE_CHANGED", "RunCheck")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "RunCheck")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "RunCheck")
-	self:RegisterEvent("READY_CHECK", "RunCheck")
+	self:RegisterEvent("READY_CHECK")
 		
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "RecordLastBuffer")
 
@@ -385,20 +385,17 @@ function BuffEnough:CheckBuffs()
 			G:SetUnitBuff("player", i)
 
 			if (string.find(buff, L["Flask of"]) or
-					string.find(buff, L["of Shattrath"]) or
-					buff == self.flasks["Supreme Power"] or
-					buff == self.flasks["Distilled Wisdom"] or
-					buff == self.flasks["Chromatic Wonder"] or
-					buff == self.flasks["Chromatic Resistance"])
+				string.find(buff, L["of Shattrath"]) or
+				self.flasks[buff])
 		   then
 				buff = self.spells["Flask/Elixirs"]
 				category = L["Consumables"]
 				duration = 7200
-			elseif G:Find(L["Battle Elixir"]) then
+			elseif G:Find(L["Battle Elixir"]) or self.battleElixirs[buff] then
 				buff = self.spells["Battle Elixir"]
 				category = L["Consumables"]
 				duration = 3600
-			elseif G:Find(L["Guardian Elixir"]) then
+			elseif G:Find(L["Guardian Elixir"]) or self.guardianElixirs[buff] then
 				buff = self.spells["Guardian Elixir"]
 				category = L["Consumables"]
 				duration = 3600
@@ -554,32 +551,21 @@ function BuffEnough:CheckGear()
 	end
 
 	-- Check for temporary weapon enchants
-	local checkingConsumables = ((GetNumRaidMembers() > 0) or (not self:GetProfileParam("consumablesinraid")))
-	
-	if checkingConsumables and self:GetProfileParam("weapon") then
-	
-		self:TrackItem(L["Consumables"], L["Mainhand Buff"], false, true)
-	
-		if OffhandHasWeapon() then
-			self:TrackItem(L["Consumables"], L["Offhand Buff"], false, true)
-		end
-		
-	end
-		
 	local hasMHEnchant, mhExp, _, hasOHEnchant, ohExp = GetWeaponEnchantInfo()
 	
 	if mhExp then mhExp = mhExp / 1000 end
 	if ohExp then ohExp = ohExp / 1000 end
 	
-	if hasOHEnchant then
-		self:TrackItem(L["Consumables"], L["Offhand Buff"], true, false, false, 3600, ohExp)
-	end
-
 	if hasMHEnchant then
-		self:TrackItem(L["Consumables"], L["Mainhand Buff"], true, false, false, 3600, mhExp)
+		self:TrackItem(L["Buffs"], L["Mainhand Buff"], true, false, false, 3600, mhExp)
+	end
+	
+	if hasOHEnchant then
+		self:TrackItem(L["Buffs"], L["Offhand Buff"], true, false, false, 3600, ohExp)
 	end
 	
 	-- Check for temporary chest enchants
+	local checkingConsumables = ((GetNumRaidMembers() > 0) or (not self:GetProfileParam("consumablesinraid")))
 	if checkingConsumables and self:GetProfileParam("chest") then
 		G:SetInventoryItem("player", select(1,GetInventorySlotInfo("ChestSlot")))
 		if not G:Find(L["Rune of Warding"]) then
@@ -1007,6 +993,19 @@ function BuffEnough:CheckBuffOrPetChange(_, unitId)
 	if unitId == "player" or unitId == "pet" then
 		self:RunCheck()
 	end
+
+end
+
+
+--[[ ---------------------------------------------------------------------------
+	 Handle ready check event
+----------------------------------------------------------------------------- ]]
+function BuffEnough:READY_CHECK()
+
+	self:RunCheck()
+	self:Unfade()
+	
+	if self.dobj.text == L["Yes"] then self:Fade() end
 
 end
 

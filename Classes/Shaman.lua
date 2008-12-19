@@ -32,6 +32,12 @@ function Shaman:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking shaman buffs") end
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Elemental Shield"], false, true, false, nil, nil, true)
+    
+    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false)
+	
+	if OffhandHasWeapon() then
+		BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
+	end
 
 end
 
