@@ -252,8 +252,8 @@ function BuffEnough:RunCheck()
 	self:CheckTank()
 	self:ScanRaidParty()
 	self:CheckBuffs()
-	self:GetModule("Player"):CheckClassBuffs()
 	self:GetModule("Player"):CheckPaladinBlessings()
+	self:GetModule("Player"):CheckClassBuffs()
 	self:CheckGear()
 	self:AnalyzeBuffResults()
 	self:RenderTooltip()
@@ -705,6 +705,26 @@ function BuffEnough:HasTrackedItem(category, itemName)
 	end
 	
 	return hasItem
+
+end
+
+
+--[[ ---------------------------------------------------------------------------
+	 Checks if we are expecting a buff on us
+----------------------------------------------------------------------------- ]]
+function BuffEnough:IsExpectingTrackedItem(category, itemName)
+
+	isExpectingItem = false
+
+	if self.trackedItems and
+	   self.trackedItems[category] and
+	   self.trackedItems[category][itemName] and
+	   self.trackedItems[category][itemName].isExpected
+	then
+		isExpectingItem = true
+	end
+	
+	return isExpectingItem
 
 end
 
