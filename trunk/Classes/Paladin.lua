@@ -52,9 +52,9 @@ function Paladin:GetPaladinBlessingList()
 
 	if GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0 then
 		return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"]}
-    elseif select(3, GetTalentTabInfo(1)) > 30 then
+    elseif select(3, GetTalentTabInfo(1)) > 40 then
         return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Might"]}
-    elseif select(3, GetTalentTabInfo(2)) > 30 then
+    elseif select(3, GetTalentTabInfo(2)) > 40 then
         return {BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Might"]}
     else
         return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
