@@ -155,7 +155,7 @@ BuffEnough.spells["Battle Elixir"] = L["Battle Elixir"]
 BuffEnough.spells["Guardian Elixir"] = L["Guardian Elixir"]
 
 BuffEnough.flasks[GetSpellInfo(17629)] = "Chromatic Resistance"
-BuffEnough.flasks[GetSpellInfo(33208)] = "Chromatic Wonder"
+BuffEnough.flasks[GetSpellInfo(42735)] = "Chromatic Wonder"
 BuffEnough.flasks[GetSpellInfo(17627)] = "Distilled Wisdom"
 BuffEnough.flasks[GetSpellInfo(17628)] = "Supreme Power"
 
