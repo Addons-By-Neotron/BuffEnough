@@ -2,7 +2,6 @@
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
 ## Author: Nikkodemus
-## Version: 1.0
 ## DefaultState: enabled
 ## X-Category: Buffs
 ## OptionalDeps: Ace3, LibGratuity-3.0, LibLogger-1.0, LibTalentQuery-1.0

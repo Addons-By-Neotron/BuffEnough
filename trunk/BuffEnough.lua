@@ -48,6 +48,8 @@ warnings[L["Unexpected"]] = false
 warnings[L["Low"]] = true
 warnings[L["Unhappy"]] = false
 
+local VER = " "..(GetAddOnMetadata("BuffEnough", "X-Curse-Packaged-Version") or GetAddOnMetadata("BuffEnough", "Version") or "")
+
 
 --[[ ---------------------------------------------------------------------------
 	 Ace3 initialization
@@ -123,9 +125,9 @@ function BuffEnough:OnInitialize()
     	OnTooltipShow = function(tooltip)
     		local txt = nil
 			if not self:GetProfileParam("enable") then
-				txt = L["Buff Enough"].."\n"..L["Currently disabled"]
+				txt = L["Buff Enough"]..VER.."\n"..L["Currently disabled"]
 			else
-				txt = L["Buff Enough"]..self.tooltip..L["Hint"]
+				txt = L["Buff Enough"]..VER..self.tooltip..L["Hint"]
 			end
 			
 			if tooltip and tooltip.AddLine then
