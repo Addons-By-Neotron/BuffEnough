@@ -33,6 +33,7 @@ BuffEnough.guardianElixirs = {}
 -- Death Knights
 
 BuffEnough.spells["Horn of Winter"] = GetSpellInfo(57330)
+BuffEnough.spells["Frost Presence"] = GetSpellInfo(48263)
 
 -- Druids
 BuffEnough.spells["Mark of the Wild"] = GetSpellInfo(1126)
@@ -148,6 +149,7 @@ BuffEnough.spellMap[BuffEnough.spells["Demon Armor"]] = BuffEnough.spells["Fel/D
 -- Warriors
 BuffEnough.spells["Battle Shout"] = GetSpellInfo(6673)
 BuffEnough.spells["Commanding Shout"] = GetSpellInfo(469)
+BuffEnough.spells["Defensive Stance"] = GetSpellInfo(71)
 
 -- Consumables
 BuffEnough.spells["Flask/Elixirs"] = L["Flask/Elixirs"]

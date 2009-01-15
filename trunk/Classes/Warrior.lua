@@ -57,6 +57,14 @@ function Warrior:CheckClassBuffs()
         end
         
     end
+    
+    local isDefensiveStance = GetShapeshiftForm(true) == 2
+    
+    if BuffEnough.playerIsTank then
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Defensive Stance"], isDefensiveStance, true, false, nil, nil, true)
+    else
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Defensive Stance"], isDefensiveStance, false, true, nil, nil, true)
+    end
 
 end
 

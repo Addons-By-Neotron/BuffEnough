@@ -33,7 +33,7 @@ function Shaman:CheckClassBuffs()
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Elemental Shield"], false, true, false, nil, nil, true)
     
-    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false)
+    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
 	
 	if OffhandHasWeapon() then
 		BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
