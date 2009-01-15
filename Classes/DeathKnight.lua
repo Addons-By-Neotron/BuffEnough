@@ -23,7 +23,6 @@ if select(2, UnitClass("player")) ~= "DEATHKNIGHT" then return end
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local DeathKnight = BuffEnough:GetOrCreateModule("Player")
 
-
 --[[ ---------------------------------------------------------------------------
      Check class buffs
 ----------------------------------------------------------------------------- ]]
@@ -42,8 +41,11 @@ function DeathKnight:CheckClassBuffs()
     end
     
     if isGhoulSpec then
+    	BuffEnough.options.args.pet.guiHidden = false
         self:CheckPetBuffs()
         self:CheckPetPaladinBlessings()
+    else
+    	BuffEnough.options.args.pet.guiHidden = true
     end
     
     local isFrostPresence = GetShapeshiftForm(false) == 2
