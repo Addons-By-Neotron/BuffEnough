@@ -33,8 +33,8 @@ function Rogue:CheckClassBuffs()
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Wisdom"], false, false, true)
     
-    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false)
-	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
+    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
+	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
 
 end
 

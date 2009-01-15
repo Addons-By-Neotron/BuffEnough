@@ -35,7 +35,7 @@ function Warlock:CheckClassBuffs()
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Fel/Demon Armor"], false, true, false, nil, nil, true)
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Might"], false, false, true)
     
-    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false)
+    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
 
     if ((not UnitExists("pet")) and (not IsMounted())) then
     

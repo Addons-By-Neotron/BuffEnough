@@ -32,9 +32,26 @@ function DeathKnight:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking deathknight buffs") end
     
     if UnitAffectingCombat("player") then
-     
 		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
-        
+    end
+    
+    local isGhoulSpec = select(5, GetTalentInfo(3, 19, false)) > 0
+    
+	if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
+        BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
+    end
+    
+    if isGhoulSpec then
+        self:CheckPetBuffs()
+        self:CheckPetPaladinBlessings()
+    end
+    
+    local isFrostPresence = GetShapeshiftForm(false) == 2
+    
+    if BuffEnough.playerIsTank then
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Frost Presence"], isFrostPresence, true, false, nil, nil, true)
+    else
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Frost Presence"], isFrostPresence, false, true, nil, nil, true)
     end
 
 end
