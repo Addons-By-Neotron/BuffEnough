@@ -150,8 +150,8 @@ function prototype:GetPetPaladinBlessingList()
     
     local powerType = UnitPowerType("pet")
 
-    -- hunter pet
-    if powerType == 2 then
+    -- hunter/DK pet
+    if powerType == 2 or powerType == 3 then
     	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
     	
     -- imp
