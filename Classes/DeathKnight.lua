@@ -30,7 +30,7 @@ function DeathKnight:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking deathknight buffs") end
     
-    if UnitAffectingCombat("player") then
+    if UnitAffectingCombat("player") and not BuffEnough:HasTrackedItem(L["Buffs"], BuffEnough.spells["Strength of Earth"]) then
 		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
     end
     

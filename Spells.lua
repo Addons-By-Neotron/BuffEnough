@@ -129,6 +129,7 @@ BuffEnough.groupBuffs[BuffEnough.spells["Prayer of Fortitude"]] = true
 BuffEnough.groupBuffs[BuffEnough.spells["Prayer of Spirit"]] = true
 
 -- Shamans
+BuffEnough.spells["Strength of Earth"] = GetSpellInfo(58646)
 BuffEnough.spells["Lightning Shield"] = GetSpellInfo(324)
 BuffEnough.spells["Earth Shield"] = GetSpellInfo(974)
 BuffEnough.spells["Water Shield"] = GetSpellInfo(52127)
