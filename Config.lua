@@ -454,7 +454,6 @@ BuffEnough.options = {
 					step = 1,
 					bigStep = 1,
 					order = 2,
-					width = "full",
 					get = function(info) return BuffEnough:GetProfileParam("scale") end,
 					set = function(info, v)
 							BuffEnough:SetProfileParam("scale", v)
@@ -470,7 +469,6 @@ BuffEnough.options = {
 					step = 0.01,
 					bigStep = 0.05,
 					order = 3,
-					width = "full",
 					get = function(info) return BuffEnough:GetProfileParam("alpha") end,
 					set = function(info, v)
 				 			BuffEnough:SetProfileParam("alpha", v)
@@ -493,6 +491,7 @@ BuffEnough.options = {
 					type = "color",
 					name = L["Buff Color"],
 					desc = L["Color to display when you are buff enough"],
+					order = 5,
 					hasAlpha = false,
 					width = "full",
 					get = function(info)
@@ -512,6 +511,7 @@ BuffEnough.options = {
 					type = "color",
 					name = L["Unbuff Color"],
 					desc = L["Color to display when you are not buff enough"],
+					order = 6,
 					hasAlpha = false,
 					width = "full",
 					get = function(info)
@@ -531,6 +531,7 @@ BuffEnough.options = {
 					type = "color",
 					name = L["Warn Buff Color"],
 					desc = L["Color to display when you are buffs are at a warning level"],
+					order = 7,
 					hasAlpha = false,
 					width = "full",
 					get = function(info)
@@ -546,7 +547,82 @@ BuffEnough.options = {
 							BuffEnough:UpdateDisplay()
 						end
 				},
-
+				bordercolor = {
+					type = "color",
+					name = L["Border Color"],
+					desc = L["Color of the display border"],
+					order = 8,
+					hasAlpha = false,
+					width = "full",
+					get = function(info)
+							local r = BuffEnough:GetProfileParam("bordercolorr")
+							local g = BuffEnough:GetProfileParam("bordercolorg")
+							local b = BuffEnough:GetProfileParam("bordercolorb")
+							return r, g, b
+						end,
+					set = function(info, r, g, b)
+							BuffEnough:SetProfileParam("bordercolorr", r)
+							BuffEnough:SetProfileParam("bordercolorg", g)
+							BuffEnough:SetProfileParam("bordercolorb", b) 
+							BuffEnough:UpdateDisplay()
+						end
+				},
+				bordersize = {
+					type = "range",
+					name = L["Border Size"],
+					desc = L["Thickness of the display border"],
+					min = 1,
+					max = 64,
+					step = 1,
+					bigStep = 1,
+					order = 9,
+					get = "GetProfileParam",
+					set = function(info, v)
+							BuffEnough:SetProfileParam("bordersize", v)
+			  				BuffEnough:UpdateDisplay()
+						end						
+				},
+				bginset = {
+					type = "range",
+					name = L["Background Inset"],
+					desc = L["How far inside the border to set the background of the display"],
+					min = 1,
+					max = 64,
+					step = 1,
+					bigStep = 1,
+					order = 10,
+					get = "GetProfileParam",
+					set = function(info, v)
+							BuffEnough:SetProfileParam("bginset", v)
+			  				BuffEnough:UpdateDisplay()
+						end						
+				},
+				bgtexture = {
+		  			type = "select",
+		  			dialogControl = "LSM30_Background",
+		  			name = L["Background Texture"],
+		  			desc = L["The background texture of the display"],
+		  			order = 11,
+		  			values = AceGUIWidgetLSMlists.background,
+					get = "GetProfileParam",
+		  			set = function(info, v)
+				 			BuffEnough:SetProfileParam("bgtexture", v)
+				  			BuffEnough:UpdateDisplay()
+					end	
+	       		},
+	       		bordertexture = {
+		  			type = 'select',
+		  			dialogControl = 'LSM30_Border',
+		  			name = L["Border Texture"],
+		  			desc = L["The border texture of the display"],
+		  			order = 12,
+		  			values = AceGUIWidgetLSMlists.border, 
+		  			get = "GetProfileParam",
+		  			set = function(info, v)
+				 			BuffEnough:SetProfileParam("bordertexture", v)
+				  			BuffEnough:UpdateDisplay()
+					end	
+	       		},
 			},
 		},
 	},
@@ -596,6 +672,13 @@ BuffEnough.defaults = {
 		warnbuffcolorr = .75,
 		warnbuffcolorg = .75,
 		warnbuffcolorb = 0,
+		bordercolorr = 1,
+		bordercolorg = 1,
+		bordercolorb = 1,
+		bordersize = 6,
+		bginset = 1,
+		bgtexture = "Blizzard Tooltip",
+		bordertexture = "Blizzard Tooltip",
 		petbuffs = false,
 		petfood = false,
 	},

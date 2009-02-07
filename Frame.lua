@@ -19,6 +19,7 @@ along with BuffEnough.  If not, see <http://www.gnu.org/licenses/>.
 
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
+local media = LibStub("LibSharedMedia-3.0")
 
 
 --[[ ---------------------------------------------------------------------------
@@ -43,21 +44,6 @@ function BuffEnough:CreateFrame()
 	self.Display:SetPoint("TOPRIGHT", self.Anchor, "TOPRIGHT")
 	self.Display:SetPoint("BOTTOMLEFT", self.Anchor, "BOTTOMLEFT")
 	self.Display:SetPoint("BOTTOMRIGHT", self.Anchor, "BOTTOMRIGHT")
-
-    local bgFrame = {
-		bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
-		edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-		tile = true,
-		tileSize = 16,
-		edgeSize = 6,
-		insets = {left = 1, right = 1, top = 1, bottom = 1}
-    }
-
-	self.Display:SetBackdrop(bgFrame)
-	self.Display:SetBackdropColor(BuffEnough:GetProfileParam("buffcolorr"),
-                                  BuffEnough:GetProfileParam("buffcolorg"),
-                                  BuffEnough:GetProfileParam("buffcolorb"))
-	self.Display:SetBackdropBorderColor(0,0,0)
 	
 	self.Display:SetScript("OnMouseDown", function(_, button)
             if button == "LeftButton" and not self:GetProfileParam("lock") then
@@ -205,6 +191,22 @@ function BuffEnough:UpdateDisplay()
 
 	self.Anchor:SetScale(self:GetProfileParam("scale") / 100.0)
 	self.Anchor:SetFrameStrata(self:GetProfileParam("strata"))
+	
+	local bgFrame = {
+		bgFile = media:Fetch("background", BuffEnough:GetProfileParam("bgtexture")), 
+		edgeFile = media:Fetch("border", BuffEnough:GetProfileParam("bordertexture")),
+		tile = false,
+		edgeSize = BuffEnough:GetProfileParam("bordersize"),
+		insets = {left = BuffEnough:GetProfileParam("bginset"),
+				  right = BuffEnough:GetProfileParam("bginset"),
+				  top = BuffEnough:GetProfileParam("bginset"),
+				  bottom = BuffEnough:GetProfileParam("bginset")}
+    }
+
+	self.Display:SetBackdrop(bgFrame)
+	self.Display:SetBackdropBorderColor(BuffEnough:GetProfileParam("bordercolorr"),
+                                  		BuffEnough:GetProfileParam("bordercolorg"),
+                                  		BuffEnough:GetProfileParam("bordercolorb"))
 
 	if self:GetProfileParam("lock") then
 		self.Grip:Hide()

@@ -82,6 +82,16 @@ L["Unbuff Color"] = true
 L["Color to display when you are not buff enough"] = true
 L["Warn Buff Color"] = true
 L["Color to display when you are buffs are at a warning level"] = true
+L["Border Color"] = true
+L["Color of the display border"] = true
+L["Border Size"] = true
+L["Thickness of the display border"] = true
+L["Background Inset"] = true
+L["How far inside the border to set the background of the display"] = true
+L["Background Texture"] = true
+L["The background texture of the display"] = true
+L["Border Texture"] = true
+L["The border texture of the display"] = true
 
 L["Check Pet Buffs"] = true
 L["Check pet for the same raid buffs as the player"] = true
