@@ -4,8 +4,8 @@
 ## Author: Nikkodemus
 ## DefaultState: enabled
 ## X-Category: Buffs
-## OptionalDeps: Ace3, LibGratuity-3.0, LibLogger-1.0, LibTalentQuery-1.0
-## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0
+## OptionalDeps: Ace3, LibGratuity-3.0, LibLogger-1.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
+## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
 ## SavedVariables: BuffEnoughDB
 
 #@no-lib-strip@
@@ -23,6 +23,8 @@ Libs\AceTimer-3.0\AceTimer-3.0.xml
 Libs\AceLocale-3.0\AceLocale-3.0.xml
 Libs\LibTalentQuery-1.0\lib.xml
 Libs\LibGratuity-3.0\lib.xml
+Libs\LibSharedMedia-3.0\lib.xml
+Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
 #@end-no-lib-strip@
 
 LibDataBroker-1.1.lua
