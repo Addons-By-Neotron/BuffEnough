@@ -392,7 +392,7 @@ function BuffEnough:CheckBuffs()
 		   then
 				buff = self.spells["Flask/Elixirs"]
 				category = L["Consumables"]
-				duration = 7200
+				duration = 3600
 			elseif G:Find(L["Battle Elixir"]) or self.battleElixirs[buff] then
 				buff = self.spells["Battle Elixir"]
 				category = L["Consumables"]
@@ -439,16 +439,14 @@ function BuffEnough:CheckBuffs()
 		self:TrackItem(L["Buffs"], self.spells["Shadow Resistance Aura"], false, false, true)
 		self:TrackItem(L["Buffs"], self.spells["Power Word: Fortitude"], false, true)
 		
+		if playerPowerType == 0 then
+			self:TrackItem(L["Buffs"], self.spells["Divine Spirit"], false, true)
+		end
+		
 		if checkingPet then
 			self:TrackItem(L["Pet"], self.spells["Power Word: Fortitude"], false, true)
-		end
-
-		if self.talentsAvailable[self.spells["Divine Spirit"]] then
-			if playerPowerType == 0 then
-				self:TrackItem(L["Buffs"], self.spells["Divine Spirit"], false, true)
-			end
 			
-			if checkingPet and petPowerType == 0 then
+			if petPowerType == 0 then
 				self:TrackItem(L["Pet"], self.spells["Divine Spirit"], false, true)
 			end
 		end
@@ -959,10 +957,7 @@ function BuffEnough:TalentQuery_Ready(_, name)
 	if self.trace then self:trace("Talent query for %s %s %s", unitClass, name, tostring(isNotPlayer)) end
 
 	if unitClass == "PALADIN" then
-		self:DoTalentQuery(name, self.spells["Blessing of Kings"], 2, 1, isNotPlayer)
 		self:DoTalentQuery(name, self.spells["Blessing of Sanctuary"], 2, 12, isNotPlayer)
-	elseif unitClass == "PRIEST" then
-		self:DoTalentQuery(name, self.spells["Divine Spirit"], 1, 14, isNotPlayer)
 	end
 
 	self:ScanRaidParty()

@@ -47,10 +47,9 @@ function prototype:CheckPaladinBlessings()
         if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
 
         if blessing and blessing ~= L["None"] then
-            if (((blessing == BuffEnough.spells["Blessing of Sanctuary"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]])) or
-                ((blessing == BuffEnough.spells["Blessing of Kings"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Kings"]])) or
-                (blessing ~= BuffEnough.spells["Blessing of Sanctuary"] and
-                 blessing ~= BuffEnough.spells["Blessing of Kings"]))
+            if ((blessing == BuffEnough.spells["Blessing of Sanctuary"] and
+            	 BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]]) or
+                blessing ~= BuffEnough.spells["Blessing of Sanctuary"])
             then
 
                 BuffEnough:TrackItem(L["Buffs"], blessing, false, true)
