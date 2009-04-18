@@ -3,4 +3,5 @@
 	<Script file="Locales\Locale-enUS.lua"/>
 	<Script file="Locales\Locale-frFR.lua"/>
 	<Script file="Locales\Locale-deDE.lua"/>
+	<Script file="Locales\Locale-ruRU.lua"/>
 </Ui>
