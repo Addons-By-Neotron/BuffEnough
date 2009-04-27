@@ -75,10 +75,7 @@ function prototype:CheckPetBuffs()
 	while petbuff do
 	
 		if BuffEnough.spellMap[petbuff] then
-
-			if self.spam then self:spam("Remapped '%s'", petbuff) end
 			petbuff = BuffEnough.spellMap[petbuff]
-
 		end
 	
 	    BuffEnough:TrackItem(L["Pet"], petbuff, true)
@@ -123,10 +120,8 @@ function prototype:CheckPetPaladinBlessings()
         if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
 
         if blessing and blessing ~= L["None"] then
-            if (((blessing == BuffEnough.spells["Blessing of Sanctuary"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]])) or
-                ((blessing == BuffEnough.spells["Blessing of Kings"]) and (BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Kings"]])) or
-                (blessing ~= BuffEnough.spells["Blessing of Sanctuary"] and
-                 blessing ~= BuffEnough.spells["Blessing of Kings"]))
+            if ((blessing == BuffEnough.spells["Blessing of Sanctuary"] and BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]]) or
+                blessing ~= BuffEnough.spells["Blessing of Sanctuary"])
             then
 
                 BuffEnough:TrackItem(L["Pet"], blessing, false, true)
@@ -151,7 +146,7 @@ function prototype:GetPetPaladinBlessingList()
 
     -- hunter/DK pet
     if powerType == 2 or powerType == 3 then
-    	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
+    	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
     	
     -- imp
     elseif powerType == 0 and select(2, UnitClass("pet")) == "MAGE"  then
@@ -159,7 +154,7 @@ function prototype:GetPetPaladinBlessingList()
     	
     -- all other warlock pets
     else 
-       	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
+       	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Wisdom"]}
     end
 
 end
