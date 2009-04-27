@@ -74,10 +74,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function Warrior:GetPaladinBlessingList()
 
-	if select(3, GetTalentTabInfo(3)) > 40 then
-    	return {BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-    else
-    	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
-    end
+	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
 
 end

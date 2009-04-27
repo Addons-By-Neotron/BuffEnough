@@ -4,7 +4,7 @@
 ## Author: Nikkodemus
 ## DefaultState: enabled
 ## X-Category: Buffs
-## OptionalDeps: Ace3, LibGratuity-3.0, LibLogger-1.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
+## OptionalDeps: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
 ## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
 ## SavedVariables: BuffEnoughDB
 

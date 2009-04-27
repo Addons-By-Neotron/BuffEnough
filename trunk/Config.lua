@@ -25,13 +25,6 @@ local C = LibStub("AceConfigDialog-3.0")
 --[[ ---------------------------------------------------------------------------
 	 Create dropdowns
 ----------------------------------------------------------------------------- ]]
-local logLevelsDropdown = {}
-
-if BuffEnough.logLevels then
-	for logname,id in pairs(BuffEnough.logLevels) do
-		logLevelsDropdown[id] = L[logname]
-	end
-end
 
 local blessingsDropdown = {}
 blessingsDropdown[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["Blessing of Kings"]
@@ -136,14 +129,6 @@ BuffEnough.options = {
 							BuffEnough:SetProfileParam("fade", v)
 							BuffEnough:UpdateDisplay()
 				  		end	
-				},
-				logLevel = {
-					type = "select",
-					name = L["Log Level"],
-					desc = L["Determines the amount of output from the addon"],
-					order = 99,
-					values = logLevelsDropdown,
-					disabled = function() return not LibStub("LibLogger-1.0", true) end,
 				},
 			},
 		},
@@ -325,7 +310,7 @@ BuffEnough.options = {
 			name = L["Pet"],
 			set = "SetProfileParam",
 			get = "GetProfileParam",
-			order = 49,
+			order = 3,
 			cmdHidden = true,
 			guiHidden = true,
 			args = {
@@ -768,7 +753,6 @@ end
 function BuffEnough:OnProfileChanged(event, newdb)
 
    if event ~= "OnProfileDeleted" then
-	  if LibStub("LibLogger-1.0", true) then self:SetLogLevel(self.db.profile.logLevel) end
 	  self:SetStatusText(string.format(L["Profile: %s"], self.db:GetCurrentProfile()))
 	  BuffEnough:RunCheck()
    end
@@ -789,13 +773,7 @@ function BuffEnough:SetProfileParam(var, value)
 	   varName = var[#var]
    end
 
-   if self.trace then self:trace("Setting parameter %s to %s.", varName, tostring(value)) end
-
    self.db.profile[varName] = value
-
-   if varName == "logLevel" and LibStub("LibLogger-1.0", true) then
-	  self:SetLogLevel(value)
-   end
 
 end
 
@@ -812,8 +790,6 @@ function BuffEnough:GetProfileParam(var)
    else
 	   varName = var[#var]
    end
-
-   if self.spam then self:spam("Getting parameter %s as %s", varName, tostring(self.db.profile[varName])) end
 
    return self.db.profile[varName]
 

@@ -17,8 +17,6 @@ L["config"] = true
 L["Toggle the configuration dialog"] = true
 
 L["General"] = true
-L["Log Level"] = true
-L["Determines the amount of output from the addon"] = true
 L["Enable While Solo"] = true
 L["Enable BuffEnough while not in a party/raid"] = true
 L["Check In Combat"] = true
@@ -151,13 +149,3 @@ L["Flask of"] = true
 L["of Shattrath"] = true
 L["Battle Elixir"] = true
 L["Guardian Elixir"] = true
-
--- log levels
-
-L["NONE"] = "Disabled"
-L["ERROR"] = "Errors only"
-L["WARN"] = "Errors and warnings"
-L["INFO"] = "Informational messages"
-L["DEBUG"] = "Debug messaging"
-L["TRACE"] = "Debug trace messages"
-L["SPAM"] = "Everything"

@@ -21,13 +21,7 @@ along with BuffEnough.	If not, see <http://www.gnu.org/licenses/>.
 	 Instantiate addon and libraries
 ----------------------------------------------------------------------------- ]]
 
-BuffEnough = nil
-
-if LibStub("LibLogger-1.0", true) then
-    BuffEnough = LibStub("AceAddon-3.0"):NewAddon("BuffEnough", "AceEvent-3.0", "AceBucket-3.0", "AceTimer-3.0", "AceConsole-3.0", "LibLogger-1.0")
-else
-	BuffEnough = LibStub("AceAddon-3.0"):NewAddon("BuffEnough", "AceEvent-3.0", "AceBucket-3.0", "AceTimer-3.0", "AceConsole-3.0")
-end
+BuffEnough = LibStub("AceAddon-3.0"):NewAddon("BuffEnough", "AceEvent-3.0", "AceBucket-3.0", "AceTimer-3.0", "AceConsole-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local TQ = LibStub:GetLibrary("LibTalentQuery-1.0")
@@ -95,15 +89,10 @@ function BuffEnough:OnInitialize()
 	self.options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	LibStub("AceConfig-3.0"):RegisterOptionsTable(L["BuffEnough"], self.options, {L["buffenough"], L["be"]})
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(L["BuffEnough"], L["BuffEnough"])
-
-	-- Logging
-	if LibStub("LibLogger-1.0", true) then
-		self:SetLogLevel(self.db.profile.logLevel)
-		self:SetPerformanceMode(true)
-	end
 	
 	-- Set up the data broker object
 	self.dobj = LDB:NewDataObject(L["BuffEnough"], {
+		type = "data source",
 		icon = "Interface\\Icons\\Spell_Magic_GreaterBlessingofKings",
 		label = L["BuffEnough"],
     	text = L["Yes"],
@@ -172,8 +161,6 @@ end
 	 Enables addon
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:DoEnable()
-
-	if self.debug then self:debug("Addon enabled") end
 	
 	self:SetProfileParam("enable", true) 
 	
@@ -192,7 +179,6 @@ function BuffEnough:DoEnable()
 	-- Watch main tanks
 	if oRA then
 		self:RegisterEvent("oRA_MainTankUpdate", "RunCheck")
-		if self.debug then self:debug("Registered for oRA MT updates") end
 	end
 	
 	self:SetAnchors(true)
@@ -217,8 +203,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:DoDisable()
 
-	if self.debug then self:debug("Addon disabled") end
-
 	self:SetProfileParam("enable", false) 
 	
 	self:UnregisterAllEvents()
@@ -240,9 +224,7 @@ function BuffEnough:RunCheck()
 	elseif not self:GetProfileParam("incombat") and UnitAffectingCombat("player") then
 		return
 	end
-
-	if self.debug then self:debug("Running check") end
-
+	
 	-- Initialize
 	self.tooltip = ""
 	self.trackedItems = {}
@@ -259,8 +241,6 @@ function BuffEnough:RunCheck()
 	self:CheckGear()
 	self:AnalyzeBuffResults()
 	self:RenderTooltip()
-
-	if self.debug then self:debug("BuffEnough: %s, BuffWarning: %s", tostring(self.isBuffEnough), tostring(self.isBuffWarning)) end
 	
 	-- Feed results to DO
 	if not self.isBuffEnough then
@@ -280,8 +260,6 @@ end
 	 Iterate through party/raid to see what we have to work with
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:ScanRaidParty()
-
-	if self.debug then self:debug("Checking raid/party makeup") end
 
 	-- Initialize
 	self.raidClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
@@ -322,8 +300,6 @@ function BuffEnough:ScanRaidParty()
 				unitZone = select(7, GetRaidRosterInfo(i))
 			end
 
-			if self.spam then self:spam("%s %s %s", unit, tostring(unitZone), tostring(unitClass)) end
-
 			if ((not unitZone or unitZone == playerZone) and unitClass) then
 
 				self.raidClassCount[unitClass] = self.raidClassCount[unitClass] + 1
@@ -332,7 +308,7 @@ function BuffEnough:ScanRaidParty()
 					self.partyClassCount[unitClass] = self.partyClassCount[unitClass] + 1
 				end
 
-				if (unitClass == "PRIEST" or unitClass == "PALADIN") then
+				if (unitClass == "PALADIN") then
 
 					self:GetTalents(unit)
 
@@ -351,8 +327,6 @@ end
 	 Check buffs
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:CheckBuffs()
-
-	if self.debug then self:debug("Checking buffs") end
 
 	-- Initialize
 	local playerPowerType = UnitPowerType("player")
@@ -375,10 +349,7 @@ function BuffEnough:CheckBuffs()
 
 		-- Map if this a longer version of a buff (eg. greater blessing vs regular blessing)
 		if self.spellMap[buff] then
-
-			if self.spam then self:spam("Remapped '%s'", buff) end
 			buff = self.spellMap[buff]
-
 		end
 
 		-- Remap for flask/battle/guardian elixir
@@ -513,8 +484,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:CheckGear()
 
-	if self.debug then self:debug("Checking gear") end
-
 	local twoHander = false
 
 	local itemLink = GetInventoryItemLink("player", GetInventorySlotInfo("MainHandSlot"))
@@ -602,8 +571,6 @@ end
 	 Analyze buff results
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:AnalyzeBuffResults()
-
-	if self.debug then self:debug("Analyzing buff results") end
 	
 	for c,cv in pairs(self.trackedItems) do
 
@@ -634,11 +601,6 @@ function BuffEnough:AnalyzeBuffResults()
 				self.results[c][b] = status
 			
 			end
-		
-			if self.trace then self:trace("Analyzing buff %s '%s': %s, %s, %s, %s, %s: %s",
-										  c, b, tostring(v.isPresent), tostring(v.isExpected),
-										  tostring(v.isUnexpected), tostring(v.isCloseToExpire),
-										  tostring(v.statusOverride), tostring(status)) end
 										  
 		end
 
@@ -681,11 +643,7 @@ function BuffEnough:TrackItem(category, itemName, isPresent, isExpected, isUnexp
 	then
 		self.trackedItems[category][itemName].isCloseToExpire = true
 	end
-		
-	if self.trace then self:trace("Tracking item %s '%s': %s, %s, %s, %s (%s / %s)",
-								  category, itemName, tostring(isPresent), tostring(isExpected), tostring(isUnexpected),
-								  tostring(self.trackedItems[category][itemName].isCloseToExpire), tostring(timeLeft), tostring(duration)) end
-
+	
 end
 
 
@@ -742,8 +700,6 @@ function BuffEnough:RenderTooltip()
 			self.tooltip = self.tooltip.."\n\n"..heading
 
 			for buff,status in pairs(res) do
-
-				if self.debug then self:debug("%s %s", status, buff) end
 				
 				self.tooltip = self.tooltip.."\n  "..status.." |cffffffff"..buff
 				
@@ -907,8 +863,6 @@ function BuffEnough:CheckTank()
 		end
 	end
 
-	if self.trace then self:trace("Player %s a tank", (self.playerIsTank and "is" or "is not")) end
-
 end
 
 
@@ -922,20 +876,15 @@ function BuffEnough:GetTalents(unit)
 
 	if not self.talents[name] then
 
-		if self.trace then self:trace("Get new talents for %s", name) end
-
-	if UnitIsUnit(unit, "player") then
-		self:TalentQuery_Ready(_, name)
-	else
-		TQ:Query(unit)
-	end
+		if UnitIsUnit(unit, "player") then
+			self:TalentQuery_Ready(_, name)
+		else
+			TQ:Query(unit)
+		end
 
 	elseif next(self.talents[name]) then
 
-		if self.trace then self:trace("Existing talents for %s", name) end
-
 		for t,_ in pairs(self.talents[name]) do
-			if self.trace then self:trace("%s is available", t) end
 			self.talentsAvailable[t] = true
 		end
 
@@ -954,8 +903,6 @@ function BuffEnough:TalentQuery_Ready(_, name)
 	local unitClass = select(2, UnitClass(name))
 	local isNotPlayer = not UnitIsUnit(name, "player")
 
-	if self.trace then self:trace("Talent query for %s %s %s", unitClass, name, tostring(isNotPlayer)) end
-
 	if unitClass == "PALADIN" then
 		self:DoTalentQuery(name, self.spells["Blessing of Sanctuary"], 2, 12, isNotPlayer)
 	end
@@ -971,7 +918,6 @@ end
 function BuffEnough:DoTalentQuery(name, talent, tabIndex, talentIndex, isNotPlayer)
 
 	local points = select(5, GetTalentInfo(tabIndex, talentIndex, isNotPlayer))
-	if self.trace then self:trace("%s %s: %d", name, talent, points) end
 
 	if points > 0 then
 		self.talents[name][talent] = points
@@ -987,7 +933,6 @@ end
 function BuffEnough:CheckRaidChange()
 
 	local isSolo = GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0
-	if self.debug then self:debug("Checking raid change, solo: %s", tostring(isSolo)) end
 
 	if not isSolo and not self:GetProfileParam("enable") then
 		self:DoEnable()
@@ -1052,7 +997,6 @@ function BuffEnough:RecordLastBuffer(_, _, eventType, srcGUID, srcName, _, dstGU
 			end
 	
 			self.lastBuffer[spellName] = srcName
-	    	if self.debug then self:debug("Last buffer for %s: %s", tostring(spellName), tostring(srcName)) end
 	    	
 	    end
 	
