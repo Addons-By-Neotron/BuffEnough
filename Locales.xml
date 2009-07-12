@@ -2,4 +2,5 @@
 ..\FrameXML\UI.xsd">
 	<Script file="Locales\Locale-enUS.lua"/>
 	<Script file="Locales\Locale-ruRU.lua"/>
+	<Script file="Locales\Locale-deDE.lua"/>
 </Ui>
