@@ -34,7 +34,7 @@ function DeathKnight:CheckClassBuffs()
 		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
     end
     
-    local isGhoulSpec = select(5, GetTalentInfo(3, 19, false)) > 0
+    local isGhoulSpec = select(5, GetTalentInfo(3, 20, false)) > 0
     
 	if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
         BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
