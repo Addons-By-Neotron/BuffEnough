@@ -31,8 +31,6 @@ function Rogue:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking rogue buffs") end
 
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Wisdom"], false, false, true)
-    
     BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
 	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
 
@@ -44,6 +42,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function Rogue:GetPaladinBlessingList()
 
-    return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
+    return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
 
 end

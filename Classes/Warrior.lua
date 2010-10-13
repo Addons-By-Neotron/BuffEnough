@@ -31,8 +31,6 @@ function Warrior:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking warrior buffs") end
 
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Wisdom"], false, false, true)
-
     if UnitAffectingCombat("player") then
      
     	if BuffEnough:IsExpectingTrackedItem(L["Buffs"], BuffEnough.spells["Blessing of Might"]) then
@@ -48,7 +46,7 @@ function Warrior:CheckClassBuffs()
                not BuffEnough.trackedItems[BuffEnough.spells["Commanding Shout"]]
         then
         
-            if select(3, GetTalentTabInfo(3)) > 40 then
+            if select(5, GetTalentTabInfo(3)) > 30 then
             	BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Commanding Shout"], false, true, false, nil, nil, true)
             else
             	BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Battle Shout"], false, true, false, nil, nil, true)
@@ -74,6 +72,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function Warrior:GetPaladinBlessingList()
 
-	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
+	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
 
 end

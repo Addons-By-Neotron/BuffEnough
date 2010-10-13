@@ -47,15 +47,8 @@ function prototype:CheckPaladinBlessings()
         if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
 
         if blessing and blessing ~= L["None"] then
-            if ((blessing == BuffEnough.spells["Blessing of Sanctuary"] and
-            	 BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]]) or
-                blessing ~= BuffEnough.spells["Blessing of Sanctuary"])
-            then
-
-                BuffEnough:TrackItem(L["Buffs"], blessing, false, true)
-                i = i + 1
-
-            end
+            BuffEnough:TrackItem(L["Buffs"], blessing, false, true)
+            i = i + 1
         end
 
     end
@@ -120,14 +113,8 @@ function prototype:CheckPetPaladinBlessings()
         if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
 
         if blessing and blessing ~= L["None"] then
-            if ((blessing == BuffEnough.spells["Blessing of Sanctuary"] and BuffEnough.talentsAvailable[BuffEnough.spells["Blessing of Sanctuary"]]) or
-                blessing ~= BuffEnough.spells["Blessing of Sanctuary"])
-            then
-
-                BuffEnough:TrackItem(L["Pet"], blessing, false, true)
-                i = i + 1
-
-            end
+            BuffEnough:TrackItem(L["Pet"], blessing, false, true)
+            i = i + 1
         end
 
     end
@@ -146,15 +133,15 @@ function prototype:GetPetPaladinBlessingList()
 
     -- hunter/DK pet
     if powerType == 2 or powerType == 3 then
-    	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
+    	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
     	
     -- imp
     elseif powerType == 0 and select(2, UnitClass("pet")) == "MAGE"  then
-    	return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
+    	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
     	
     -- all other warlock pets
     else 
-       	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Wisdom"]}
+       	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
     end
 
 end

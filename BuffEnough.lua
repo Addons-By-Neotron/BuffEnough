@@ -407,7 +407,6 @@ function BuffEnough:CheckBuffs()
 	end
 
 	if self.raidClassCount["PRIEST"] > 0 then
-		self:TrackItem(L["Buffs"], self.spells["Shadow Resistance Aura"], false, false, true)
 		self:TrackItem(L["Buffs"], self.spells["Power Word: Fortitude"], false, true)
 		
 		if playerPowerType == 0 then
@@ -902,10 +901,6 @@ function BuffEnough:TalentQuery_Ready(_, name)
 	self.talents[name] = {}
 	local unitClass = select(2, UnitClass(name))
 	local isNotPlayer = not UnitIsUnit(name, "player")
-
-	if unitClass == "PALADIN" then
-		self:DoTalentQuery(name, self.spells["Blessing of Sanctuary"], 2, 12, isNotPlayer)
-	end
 
 	self:ScanRaidParty()
 

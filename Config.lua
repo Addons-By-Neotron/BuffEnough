@@ -29,7 +29,6 @@ local C = LibStub("AceConfigDialog-3.0")
 local blessingsDropdown = {}
 blessingsDropdown[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["Blessing of Kings"]
 blessingsDropdown[BuffEnough.spells["Blessing of Might"]] = BuffEnough.spells["Blessing of Might"]
-blessingsDropdown[BuffEnough.spells["Blessing of Sanctuary"]] = BuffEnough.spells["Blessing of Sanctuary"]
 blessingsDropdown[L["None"]] = L["None"]
 
 local customCategoryDropdown = {}
@@ -168,26 +167,6 @@ BuffEnough.options = {
 					values = blessingsDropdown,
 					set = function(info, v)
 							BuffEnough:SetProfileParam("blessing2", v)
-							BuffEnough:RunCheck()
-						  end	
-				},
-				blessing3 = {
-					type = "select",
-					name = L["Blessing"].."3",
-					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
-					values = blessingsDropdown,
-					set = function(info, v)
-							BuffEnough:SetProfileParam("blessing3", v)
-							BuffEnough:RunCheck()
-						  end	
-				},
-				blessing4 = {
-					type = "select",
-					name = L["Blessing"].."4",
-					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
-					values = blessingsDropdown,
-					set = function(info, v)
-							BuffEnough:SetProfileParam("blessing4", v)
 							BuffEnough:RunCheck()
 						  end	
 				},
@@ -374,26 +353,6 @@ BuffEnough.options = {
 									BuffEnough:SetProfileParam("petblessing2", v)
 									BuffEnough:RunCheck()
 						  		end	
-						},
-						petblessing3 = {
-							type = "select",
-							name = L["Blessing"].."3",
-							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
-							values = blessingsDropdown,
-							set = function(info, v)
-									BuffEnough:SetProfileParam("petblessing3", v)
-									BuffEnough:RunCheck()
-								  end	
-						},
-						petblessing4 = {
-							type = "select",
-							name = L["Blessing"].."4",
-							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
-							values = blessingsDropdown,
-							set = function(info, v)
-									BuffEnough:SetProfileParam("petblessing4", v)
-									BuffEnough:RunCheck()
-								  end	
 						},
 					},
 				},
