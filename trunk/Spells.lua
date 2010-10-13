@@ -81,12 +81,10 @@ BuffEnough.spells["Resistance Aura"] = GetSpellInfo(19891)
 BuffEnough.spells["Righteous Fury"] = GetSpellInfo(25780)
 
 -- Priests
-BuffEnough.spells["Prayer of Fortitude"] = GetSpellInfo(21562)
-BuffEnough.spells["Divine Spirit"] = GetSpellInfo(39234)
+BuffEnough.spells["Power Word: Fortitude"] = GetSpellInfo(21562)
 BuffEnough.spells["Inner Fire"] = GetSpellInfo(588)
 
-BuffEnough.groupBuffs[BuffEnough.spells["Prayer of Fortitude"]] = true
-BuffEnough.groupBuffs[BuffEnough.spells["Divine Spirit"]] = true
+BuffEnough.groupBuffs[BuffEnough.spells["Power Word: Fortitude"]] = true
 
 -- Shamans
 BuffEnough.spells["Strength of Earth"] = GetSpellInfo(58646)
