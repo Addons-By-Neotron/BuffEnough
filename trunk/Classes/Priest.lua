@@ -32,7 +32,6 @@ function Priest:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking priest buffs") end
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Inner Fire"], false, true, false, nil, nil, true)
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Might"], false, false, true)
 
 end
 

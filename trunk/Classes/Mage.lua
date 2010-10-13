@@ -32,7 +32,6 @@ function Mage:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking mage buffs") end
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Mage/Molten Armor"], false, true, false, nil, nil, true)
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Might"], false, false, true)
 
 end
 
