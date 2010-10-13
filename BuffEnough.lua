@@ -397,16 +397,8 @@ function BuffEnough:CheckBuffs()
 	if self.raidClassCount["PRIEST"] > 0 then
 		self:TrackItem(L["Buffs"], self.spells["Power Word: Fortitude"], false, true)
 		
-		if playerPowerType == 0 then
-			self:TrackItem(L["Buffs"], self.spells["Divine Spirit"], false, true)
-		end
-		
 		if checkingPet then
 			self:TrackItem(L["Pet"], self.spells["Power Word: Fortitude"], false, true)
-			
-			if petPowerType == 0 then
-				self:TrackItem(L["Pet"], self.spells["Divine Spirit"], false, true)
-			end
 		end
 	end
 

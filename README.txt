@@ -15,7 +15,6 @@ General
 * If the raid/party has a mage and you have a mana bar, you should have AI or AB
 * If the raid/party has a druid, you should have MotW
 * If the raid/party has a priest, you should have PW:F or PoF
-* If the raid/party has a priest with the Divine Spirit talent, and you have a mana bar, you should have Divine Spirit or Prayer of Spirit
 * You should have at least one blessing for each paladin in the raid/party, and blessings are prioritized based on your class and spec. You can also override with your own custom blessing priority.
 * You should not have Aspect of the Pack
 * You should not have Crusader Aura
