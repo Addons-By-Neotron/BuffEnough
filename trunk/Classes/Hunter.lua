@@ -60,6 +60,6 @@ end
 ----------------------------------------------------------------------------- ]]
 function Hunter:GetPaladinBlessingList()
 
-    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
+    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
 
 end

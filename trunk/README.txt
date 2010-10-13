@@ -13,9 +13,8 @@ General
 * If you are designated as a main tank via CT_RA or oRA2, you are considered a tank.
 * If you are considered a tank, you should not have Blessing of Salvation
 * If the raid/party has a mage and you have a mana bar, you should have AI or AB
-* If the raid/party has a druid, you should have MotW or GotW
+* If the raid/party has a druid, you should have MotW
 * If the raid/party has a priest, you should have PW:F or PoF
-* If the raid/party has a priest, you should not have Shadow Resistance Aura
 * If the raid/party has a priest with the Divine Spirit talent, and you have a mana bar, you should have Divine Spirit or Prayer of Spirit
 * You should have at least one blessing for each paladin in the raid/party, and blessings are prioritized based on your class and spec. You can also override with your own custom blessing priority.
 * You should not have Aspect of the Pack
@@ -50,9 +49,6 @@ Priest
 * You should have Inner Fire
 * You should not have Blessing of Might
 
-Rogue
-* You should not have Blessing of Wisdom
-
 Shaman
 * You should have Earth, Lightning, or Water shield
 
@@ -65,7 +61,6 @@ Warlock
 
 Warrior
 * You should have Battle Shout or Commanding Shout while in combat. If there is another warrior in your group, you should have both
-* You should not have Blessing of Wisdom
 
 Consumables (configurable)
 * You should have a food buff

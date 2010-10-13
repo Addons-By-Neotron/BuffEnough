@@ -38,12 +38,12 @@ end
 ----------------------------------------------------------------------------- ]]
 function Druid:GetPaladinBlessingList()
 
-    if select(3, GetTalentTabInfo(1)) > 40 then
-        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
-    elseif select(3, GetTalentTabInfo(2)) > 40 then
-        return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Might"]}
+    if select(5, GetTalentTabInfo(1)) > 30 then
+        return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
+    elseif select(5, GetTalentTabInfo(2)) > 30 then
+        return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
     else
-        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
+        return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
     end
 
 end

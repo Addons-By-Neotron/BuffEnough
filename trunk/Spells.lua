@@ -69,21 +69,14 @@ BuffEnough.groupBuffs[BuffEnough.spells["Dalaran Brilliance"]] = true
 -- Paladins
 BuffEnough.spells["Blessing of Kings"] = GetSpellInfo(20217)
 BuffEnough.spells["Blessing of Might"] = GetSpellInfo(19740)
-BuffEnough.spells["Blessing of Sanctuary"] = GetSpellInfo(20911)
---BuffEnough.spells["Blessing of Wisdom"] = GetSpellInfo(48936)
 
 BuffEnough.blessings[BuffEnough.spells["Blessing of Kings"]] = true
 BuffEnough.blessings[BuffEnough.spells["Blessing of Might"]] = true
-BuffEnough.blessings[BuffEnough.spells["Blessing of Sanctuary"]] = true
---BuffEnough.blessings[BuffEnough.spells["Blessing of Wisdom"]] = true
 
 BuffEnough.spells["Concentration Aura"] = GetSpellInfo(19746)
 BuffEnough.spells["Crusader Aura"] = GetSpellInfo(32223)
 BuffEnough.spells["Devotion Aura"] = GetSpellInfo(465)
-BuffEnough.spells["Fire Resistance Aura"] = GetSpellInfo(19891)
-BuffEnough.spells["Frost Resistance Aura"] = GetSpellInfo(19888)
-BuffEnough.spells["Retribution Aura"] = GetSpellInfo(7294)
-BuffEnough.spells["Shadow Resistance Aura"] = GetSpellInfo(19876)
+BuffEnough.spells["Resistance Aura"] = GetSpellInfo(19891)
 
 BuffEnough.spells["Righteous Fury"] = GetSpellInfo(25780)
 
