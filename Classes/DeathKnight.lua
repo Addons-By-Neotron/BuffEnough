@@ -36,7 +36,7 @@ function DeathKnight:CheckClassBuffs()
     
     local isGhoulSpec = select(5, GetTalentInfo(3, 20, false)) > 0
     
-	if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
+    if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
         BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
     end
     

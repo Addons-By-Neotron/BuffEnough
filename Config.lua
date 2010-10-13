@@ -30,7 +30,6 @@ local blessingsDropdown = {}
 blessingsDropdown[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["Blessing of Kings"]
 blessingsDropdown[BuffEnough.spells["Blessing of Might"]] = BuffEnough.spells["Blessing of Might"]
 blessingsDropdown[BuffEnough.spells["Blessing of Sanctuary"]] = BuffEnough.spells["Blessing of Sanctuary"]
-blessingsDropdown[BuffEnough.spells["Blessing of Wisdom"]] = BuffEnough.spells["Blessing of Wisdom"]
 blessingsDropdown[L["None"]] = L["None"]
 
 local customCategoryDropdown = {}
