@@ -39,7 +39,6 @@ Hunter
 
 Mage
 * You should have Mage Armor or Molten Armor
-* You should not have Blessing of Might
 
 Paladin
 * If you are considered a tank, you should have Righteous Fury, otherwise if you don't have the improved talent (damage reduction), you should not
@@ -47,7 +46,6 @@ Paladin
 
 Priest
 * You should have Inner Fire
-* You should not have Blessing of Might
 
 Shaman
 * You should have Earth, Lightning, or Water shield
@@ -57,7 +55,6 @@ Warlock
 * You should have a pet out if you are not mounted, or you should have a Demonic Sacrifice buff
 * If you have a pet out, it should have the same party/raid buffs that you do (configurable)
 * If you have an imp out, it should have Phase Shift
-* You should not have Blessing of Might
 
 Warrior
 * You should have Battle Shout or Commanding Shout while in combat. If there is another warrior in your group, you should have both
