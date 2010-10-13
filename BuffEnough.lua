@@ -24,7 +24,6 @@ along with BuffEnough.	If not, see <http://www.gnu.org/licenses/>.
 BuffEnough = LibStub("AceAddon-3.0"):NewAddon("BuffEnough", "AceEvent-3.0", "AceBucket-3.0", "AceTimer-3.0", "AceConsole-3.0")
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
-local TQ = LibStub:GetLibrary("LibTalentQuery-1.0")
 local G = LibStub:GetLibrary("LibGratuity-3.0")
 local LDB = LibStub:GetLibrary("LibDataBroker-1.1")
 
@@ -53,8 +52,6 @@ function BuffEnough:OnInitialize()
 	-- Initialize persistent addon variables
 	self.raidClassCount = {}
 	self.partyClassCount = {}
-	self.talents = {}
-	self.talentsAvailable = {}
 	self.lastBuffer = {}
 	self.playerIsTank = false
 		
@@ -83,8 +80,6 @@ function BuffEnough:OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileDeleted","OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-	
-	TQ.RegisterCallback(self, "TalentQuery_Ready")
 	
 	self.options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	LibStub("AceConfig-3.0"):RegisterOptionsTable(L["BuffEnough"], self.options, {L["buffenough"], L["be"]})
@@ -264,7 +259,6 @@ function BuffEnough:ScanRaidParty()
 	-- Initialize
 	self.raidClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
 	self.partyClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
-	self.talentsAvailable = {}
 
 	local unit = nil
 	local groupType = nil
@@ -282,7 +276,7 @@ function BuffEnough:ScanRaidParty()
 		groupSize = GetNumPartyMembers()
 	end
 
-	-- Tally up the raid/party, check talents if needed
+	-- Tally up the raid/party
 	for i = startNum, groupSize do
 
 		if i == 0 then
@@ -306,12 +300,6 @@ function BuffEnough:ScanRaidParty()
 
 				if (UnitInParty(unit)) then
 					self.partyClassCount[unitClass] = self.partyClassCount[unitClass] + 1
-				end
-
-				if (unitClass == "PALADIN") then
-
-					self:GetTalents(unit)
-
 				end
 
 			end
@@ -860,62 +848,6 @@ function BuffEnough:CheckTank()
 				self.playerIsTank = true
 			end
 		end
-	end
-
-end
-
-
---[[ ---------------------------------------------------------------------------
-	 Queue up a talent query for the given unit (or do it right away if its
-	 for the player)
------------------------------------------------------------------------------ ]]
-function BuffEnough:GetTalents(unit)
-
-	local name = UnitName(unit)
-
-	if not self.talents[name] then
-
-		if UnitIsUnit(unit, "player") then
-			self:TalentQuery_Ready(_, name)
-		else
-			TQ:Query(unit)
-		end
-
-	elseif next(self.talents[name]) then
-
-		for t,_ in pairs(self.talents[name]) do
-			self.talentsAvailable[t] = true
-		end
-
-	end
-
-end
-
-
---[[ ---------------------------------------------------------------------------
-	 Callback function for unit talent inspection, called from LibTalentQuery
-	 after we call Query() and the ready event fires
------------------------------------------------------------------------------ ]]
-function BuffEnough:TalentQuery_Ready(_, name)
-
-	self.talents[name] = {}
-	local unitClass = select(2, UnitClass(name))
-	local isNotPlayer = not UnitIsUnit(name, "player")
-
-	self:ScanRaidParty()
-
-end
-
-
---[[ ---------------------------------------------------------------------------
-	 Perform and record the specified talent query
------------------------------------------------------------------------------ ]]
-function BuffEnough:DoTalentQuery(name, talent, tabIndex, talentIndex, isNotPlayer)
-
-	local points = select(5, GetTalentInfo(tabIndex, talentIndex, isNotPlayer))
-
-	if points > 0 then
-		self.talents[name][talent] = points
 	end
 
 end
