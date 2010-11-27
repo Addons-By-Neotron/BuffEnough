@@ -33,14 +33,14 @@ function Mage:CheckClassBuffs()
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Mage/Molten Armor"], false, true, false, nil, nil, true)
 
+    local isPetSpec = GetPrimaryTalentTree() == 3
+
+    if isPetSpec then
+       if ((not UnitExists("pet")) and (not IsMounted())) then
+	  BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
+       end
+       
+       self:CheckPetBuffs()
+    end
 end
 
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function Mage:GetPaladinBlessingList()
-
-    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-
-end

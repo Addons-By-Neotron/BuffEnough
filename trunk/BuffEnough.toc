@@ -1,7 +1,10 @@
 ## Interface: 40000
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
-## Author: Nikkodemus
+## Author: NeoTron
+## Version: 1.2.@project-revision@
+## X-Email: neotron@gmail.com
+## X-Credits: Nikkodemus, the original author
 ## DefaultState: enabled
 ## X-Category: Buffs
 ## OptionalDeps: Ace3, LibGratuity-3.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 

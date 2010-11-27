@@ -24,38 +24,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local prototype = {}
 prototype.playerClass = select(2, UnitClass("player"))
 
-
---[[ ---------------------------------------------------------------------------
-     Check paladin blessings for class
------------------------------------------------------------------------------ ]]
-function prototype:CheckPaladinBlessings()
-
-    local paladinBlessings = {}
-
-    if BuffEnough:GetProfileParam("overrideblessings") then
-        for i=1,4 do
-            paladinBlessings[i] = BuffEnough:GetProfileParam("blessing"..i)
-        end
-    else
-        paladinBlessings = self.GetPaladinBlessingList()
-    end
-
-    local i = 1
-
-    for _,blessing in ipairs(paladinBlessings) do
-
-        if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
-
-        if blessing and blessing ~= L["None"] then
-            BuffEnough:TrackItem(L["Buffs"], blessing, false, true)
-            i = i + 1
-        end
-
-    end
-
-end
-
-
 --[[ ---------------------------------------------------------------------------
      Check pet buffs
 ----------------------------------------------------------------------------- ]]
@@ -88,71 +56,10 @@ function prototype:CheckPetBuffs()
 
 end
 
-
---[[ ---------------------------------------------------------------------------
-     Check paladin blessings for pet
------------------------------------------------------------------------------ ]]
-function prototype:CheckPetPaladinBlessings()
-
-    if not UnitExists("pet") or not BuffEnough:GetProfileParam("petbuffs") then return end
-
-    local paladinBlessings = {}
-
-    if BuffEnough:GetProfileParam("petoverrideblessings") then
-        for i=1,4 do
-            paladinBlessings[i] = BuffEnough:GetProfileParam("petblessing"..i)
-        end
-    else
-        paladinBlessings = self.GetPetPaladinBlessingList()
-    end
-
-    local i = 1
-
-    for _,blessing in ipairs(paladinBlessings) do
-
-        if (i > BuffEnough.raidClassCount["PALADIN"]) then break end
-
-        if blessing and blessing ~= L["None"] then
-            BuffEnough:TrackItem(L["Pet"], blessing, false, true)
-            i = i + 1
-        end
-
-    end
-
-end
-
-
---[[ ---------------------------------------------------------------------------
-     Formulate pet priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function prototype:GetPetPaladinBlessingList()
-
-    if not UnitExists("pet") then return end
-    
-    local powerType = UnitPowerType("pet")
-
-    -- hunter/DK pet
-    if powerType == 2 or powerType == 3 then
-    	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
-    	
-    -- imp
-    elseif powerType == 0 and select(2, UnitClass("pet")) == "MAGE"  then
-    	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
-    	
-    -- all other warlock pets
-    else 
-       	return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
-    end
-
-end
-
-
 --[[ ---------------------------------------------------------------------------
      Functions to be overriden by the prototype implementation
 ----------------------------------------------------------------------------- ]]
 prototype.CheckClassBuffs = function() end
-prototype.GetPaladinBlessingList = function() end
-
 
 --[[ ---------------------------------------------------------------------------
      Loads the module for the prototype

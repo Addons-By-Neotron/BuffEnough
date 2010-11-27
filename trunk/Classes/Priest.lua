@@ -33,14 +33,9 @@ function Priest:CheckClassBuffs()
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Inner Fire"], false, true, false, nil, nil, true)
 
-end
-
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function Priest:GetPaladinBlessingList()
-
-    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-
+    local isShadowSpec = GetPrimaryTalentTree() == 3
+    if isShadowSpec then 
+       BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Shadowform"], false, true, false, nil, nil, true)
+    end
+    
 end
