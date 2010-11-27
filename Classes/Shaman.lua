@@ -28,31 +28,13 @@ local Shaman = BuffEnough:GetOrCreateModule("Player")
      Check class buffs
 ----------------------------------------------------------------------------- ]]
 function Shaman:CheckClassBuffs()
-
-    if BuffEnough.debug then BuffEnough:debug("Checking shaman buffs") end
-
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Elemental Shield"], false, true, false, nil, nil, true)
-    
-    BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
-	
-	if OffhandHasWeapon() then
-		BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
-	end
-
-end
-
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function Shaman:GetPaladinBlessingList()
-
-    if select(5, GetTalentTabInfo(1)) > 30 then
-        return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-    elseif select(5, GetTalentTabInfo(2)) > 30 then
-        return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
-    else
-        return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-    end
-
+   if BuffEnough.debug then BuffEnough:debug("Checking shaman buffs") end
+   
+   BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Elemental Shield"], false, true, false, nil, nil, true)
+   
+   BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
+   
+   if OffhandHasWeapon() then
+      BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
+   end
 end

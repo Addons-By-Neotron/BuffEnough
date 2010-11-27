@@ -34,7 +34,7 @@ function DeathKnight:CheckClassBuffs()
 		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
     end
     
-    local isGhoulSpec = select(5, GetTalentInfo(3, 20, false)) > 0
+    local isGhoulSpec = GetPrimaryTalentTree() == 3
     
     if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
         BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
@@ -43,27 +43,16 @@ function DeathKnight:CheckClassBuffs()
     if isGhoulSpec then
     	BuffEnough.options.args.pet.guiHidden = false
         self:CheckPetBuffs()
-        self:CheckPetPaladinBlessings()
     else
     	BuffEnough.options.args.pet.guiHidden = true
     end
     
-    local isFrostPresence = GetShapeshiftForm(false) == 2
+    local isBloodPresence = GetShapeshiftForm(false) == 1
     
     if BuffEnough.playerIsTank then
-        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Frost Presence"], isFrostPresence, true, false, nil, nil, true)
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], isBloodPresence, true, false, nil, nil, true)
     else
-        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Frost Presence"], isFrostPresence, false, true, nil, nil, true)
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], isBloodPresence, false, true, nil, nil, true)
     end
 
 end
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function DeathKnight:GetPaladinBlessingList()
-
-    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-
-end
-

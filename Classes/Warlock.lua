@@ -35,23 +35,8 @@ function Warlock:CheckClassBuffs()
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Fel/Demon Armor"], false, true, false, nil, nil, true)
 
     if ((not UnitExists("pet")) and (not IsMounted())) then
-    
         BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
-        
     end
     
     self:CheckPetBuffs()
-    self:CheckPetPaladinBlessings()
-    
 end
-
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function Warlock:GetPaladinBlessingList()
-
-    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-
-end
-

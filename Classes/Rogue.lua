@@ -35,13 +35,3 @@ function Rogue:CheckClassBuffs()
 	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
 
 end
-
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function Rogue:GetPaladinBlessingList()
-
-    return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"]}
-
-end

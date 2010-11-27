@@ -24,7 +24,6 @@ local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 BuffEnough.knownSpells = {}
 BuffEnough.spells = {}
 BuffEnough.spellMap = {}
-BuffEnough.blessings = {}
 BuffEnough.groupBuffs = {}
 BuffEnough.flasks = {}
 BuffEnough.battleElixirs = {}
@@ -33,7 +32,7 @@ BuffEnough.guardianElixirs = {}
 -- Death Knights
 
 BuffEnough.spells["Horn of Winter"] = GetSpellInfo(57330)
-BuffEnough.spells["Frost Presence"] = GetSpellInfo(48263)
+BuffEnough.spells["Blood Presence"] = GetSpellInfo(48263)
 
 -- Druids
 BuffEnough.spells["Mark of the Wild"] = GetSpellInfo(1126)
@@ -45,10 +44,10 @@ BuffEnough.spells["Aspect of the Pack"] = GetSpellInfo(13159)
 BuffEnough.spells["Aspect of the Cheetah"] = GetSpellInfo(5118)
 BuffEnough.spells["Aspect of the Wild"] = GetSpellInfo(20043)
 BuffEnough.spells["Aspect of the Hawk"] = GetSpellInfo(13165)
+BuffEnough.spells["Aspect of the Fox"] = GetSpellInfo(82661)
 BuffEnough.spells["Aspect"] = L["Aspect"]
 
-BuffEnough.spells["Trueshot Aura"] = GetSpellInfo(19506)
-
+BuffEnough.spellMap[BuffEnough.spells["Aspect of the Fox"]] = BuffEnough.spells["Aspect"]
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Wild"]] = BuffEnough.spells["Aspect"]
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Hawk"]] = BuffEnough.spells["Aspect"]
 
@@ -70,19 +69,28 @@ BuffEnough.groupBuffs[BuffEnough.spells["Dalaran Brilliance"]] = true
 BuffEnough.spells["Blessing of Kings"] = GetSpellInfo(20217)
 BuffEnough.spells["Blessing of Might"] = GetSpellInfo(19740)
 
-BuffEnough.blessings[BuffEnough.spells["Blessing of Kings"]] = true
-BuffEnough.blessings[BuffEnough.spells["Blessing of Might"]] = true
+BuffEnough.groupBuffs[BuffEnough.spells["Blessing of Kings"]] = true
+BuffEnough.groupBuffs[BuffEnough.spells["Blessing of Might"]] = true
+
+-- Pally / Druid BoK/MotW
+BuffEnough.spells["MotW/BoK"] = L["MotW/BoK"]
+BuffEnough.groupBuffs[BuffEnough.spells["MotW/BoK"]] = true
+BuffEnough.spellMap[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["MotW/BoK"]
+BuffEnough.spellMap[BuffEnough.spells["Mark of the Wild"]] = BuffEnough.spells["MotW/BoK"]
+
 
 BuffEnough.spells["Concentration Aura"] = GetSpellInfo(19746)
 BuffEnough.spells["Crusader Aura"] = GetSpellInfo(32223)
 BuffEnough.spells["Devotion Aura"] = GetSpellInfo(465)
 BuffEnough.spells["Resistance Aura"] = GetSpellInfo(19891)
+BuffEnough.spells["Retribution Aura"] = GetSpellInfo(7294)
 
 BuffEnough.spells["Righteous Fury"] = GetSpellInfo(25780)
 
 -- Priests
 BuffEnough.spells["Power Word: Fortitude"] = GetSpellInfo(21562)
 BuffEnough.spells["Inner Fire"] = GetSpellInfo(588)
+BuffEnough.spells["Shadowform"] = GetSpellInfo(15473)
 
 BuffEnough.groupBuffs[BuffEnough.spells["Power Word: Fortitude"]] = true
 
