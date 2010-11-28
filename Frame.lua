@@ -45,13 +45,14 @@ function BuffEnough:CreateFrame()
 	self.Display:SetPoint("BOTTOMLEFT", self.Anchor, "BOTTOMLEFT")
 	self.Display:SetPoint("BOTTOMRIGHT", self.Anchor, "BOTTOMRIGHT")
 	
-	self.Display:SetScript("OnMouseDown", function(_, button)
-            if button == "LeftButton" and not self:GetProfileParam("lock") then
-                self.Anchor:StartMoving();
-            else
-				self.dobj.OnClick(this, button)
-            end
-        end)
+	self.Display:SetScript("OnMouseDown",
+			       function(this, button)
+				  if button == "LeftButton" and not self:GetProfileParam("lock") then
+				     self.Anchor:StartMoving();
+				  else
+				     self.dobj.OnClick(this, button)
+				  end
+			       end)
 
 	self.Display:SetScript("OnMouseUp", function()
             if not self:GetProfileParam("lock") then
@@ -62,17 +63,17 @@ function BuffEnough:CreateFrame()
 
 	self.Display:SetScript("OnEnter", function()
 				self:Unfade()
-                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-          		GameTooltip:ClearLines()
-                self.dobj.OnTooltipShow(GameTooltip)
-                GameTooltip:Show()
-                self.isShowingTooltip = true
+				GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				GameTooltip:ClearLines()
+				self.dobj.OnTooltipShow(GameTooltip)
+				GameTooltip:Show()
+				self.isShowingTooltip = true
         end)
 
 	self.Display:SetScript("OnLeave", function()
 				self:Fade()	
-                GameTooltip:Hide()
-                self.isShowingTooltip = false
+				GameTooltip:Hide()
+				self.isShowingTooltip = false
         end)
 
     -- Grip
@@ -81,18 +82,18 @@ function BuffEnough:CreateFrame()
 	self.Grip:SetHighlightTexture("Interface\\AddOns\\BuffEnough\\ResizeGrip")
 	self.Grip:SetWidth(16)
 	self.Grip:SetHeight(16)
-	self.Grip:SetScript("OnMouseDown", function()
-		if not self:GetProfileParam("lock") then
-			this:GetParent():GetParent():StartSizing()
-			this:GetParent():GetParent().IsMovingOrSizing = true
-		end
-	end)
+	self.Grip:SetScript("OnMouseDown", function(this)
+					      if not self:GetProfileParam("lock") then
+						 this:GetParent():GetParent():StartSizing()
+						 this:GetParent():GetParent().IsMovingOrSizing = true
+					      end
+					   end)
 	
-	self.Grip:SetScript("OnMouseUp", function()
-		this:GetParent():GetParent():StopMovingOrSizing()
-		this:GetParent():GetParent().IsMovingOrSizing = nil
-		self:SetAnchors()
-	end)
+	self.Grip:SetScript("OnMouseUp", function(this)
+					    this:GetParent():GetParent():StopMovingOrSizing()
+					    this:GetParent():GetParent().IsMovingOrSizing = nil
+					    self:SetAnchors()
+					 end)
 	
 	self.Grip:SetPoint("BOTTOMRIGHT", self.Display, "BOTTOMRIGHT", 1, -1)
 
