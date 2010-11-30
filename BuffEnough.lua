@@ -41,7 +41,7 @@ warnings[L["Unexpected"]] = false
 warnings[L["Low"]] = true
 warnings[L["Unhappy"]] = false
 
-local VER = " "..(GetAddOnMetadata("BuffEnough", "X-Curse-Packaged-Version") or GetAddOnMetadata("BuffEnough", "Version") or "")
+local VER = "1.2."..(tonumber('@project-revision@') or tonumber(("$Revision$"):match("%d+")))
 
 
 --[[ ---------------------------------------------------------------------------
