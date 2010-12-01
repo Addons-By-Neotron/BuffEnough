@@ -33,10 +33,19 @@ BuffEnough.guardianElixirs = {}
 
 BuffEnough.spells["Horn of Winter"] = GetSpellInfo(57330)
 BuffEnough.spells["Blood Presence"] = GetSpellInfo(48263)
+BuffEnough.spells["Frost Presence"] = GetSpellInfo(48266)
+BuffEnough.spells["Unholy Presence"] = GetSpellInfo(48265)
+
+BuffEnough.spells["Presence"] = L["Presence"]
+
+BuffEnough.spellMap[BuffEnough.spells["Blood Presence"]] = BuffEnough.spells["Presence"]
+BuffEnough.spellMap[BuffEnough.spells["Unholy Presence"]] = BuffEnough.spells["Presence"]
+BuffEnough.spellMap[BuffEnough.spells["Frost Presence"]] = BuffEnough.spells["Presence"]
+
 
 -- Druids
+BuffEnough.spells["Moonkin Form"] = GetSpellInfo(24858)
 BuffEnough.spells["Mark of the Wild"] = GetSpellInfo(1126)
-
 BuffEnough.groupBuffs[BuffEnough.spells["Mark of the Wild"]] = true
 
 -- Hunter
@@ -51,19 +60,25 @@ BuffEnough.spellMap[BuffEnough.spells["Aspect of the Fox"]] = BuffEnough.spells[
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Wild"]] = BuffEnough.spells["Aspect"]
 BuffEnough.spellMap[BuffEnough.spells["Aspect of the Hawk"]] = BuffEnough.spells["Aspect"]
 
+-- Hunter Pets
+
+BuffEnough.spells["Embrace of the Shale Spider"] = GetSpellInfo(90363)
+BuffEnough.spells["Qiraji Fortitude"] = GetSpellInfo(90364)
+
+
 -- Mages
-BuffEnough.spells["Arcane Intellect"] = GetSpellInfo(1459)
+BuffEnough.spells["Arcane Brilliance"] = GetSpellInfo(1459)
 BuffEnough.spells["Dalaran Brilliance"] = GetSpellInfo(61316)
 BuffEnough.spells["Mage Armor"] = GetSpellInfo(6117)
 BuffEnough.spells["Molten Armor"] = GetSpellInfo(30482)
 BuffEnough.spells["Mage/Molten Armor"] = L["Mage/Molten Armor"]
 
-BuffEnough.spellMap[BuffEnough.spells["Dalaran Brilliance"]] = BuffEnough.spells["Arcane Intellect"]
 BuffEnough.spellMap[BuffEnough.spells["Mage Armor"]] = BuffEnough.spells["Mage/Molten Armor"]
 BuffEnough.spellMap[BuffEnough.spells["Molten Armor"]] = BuffEnough.spells["Mage/Molten Armor"]
 
-BuffEnough.groupBuffs[BuffEnough.spells["Arcane Intellect"]] = true
+BuffEnough.groupBuffs[BuffEnough.spells["Arcane Brilliance"]] = true
 BuffEnough.groupBuffs[BuffEnough.spells["Dalaran Brilliance"]] = true
+BuffEnough.spellMap[BuffEnough.spells["Dalaran Brilliance"]] = BuffEnough.spells["Dalaran Brilliance"]
 
 -- Paladins
 BuffEnough.spells["Blessing of Kings"] = GetSpellInfo(20217)
@@ -71,13 +86,6 @@ BuffEnough.spells["Blessing of Might"] = GetSpellInfo(19740)
 
 BuffEnough.groupBuffs[BuffEnough.spells["Blessing of Kings"]] = true
 BuffEnough.groupBuffs[BuffEnough.spells["Blessing of Might"]] = true
-
--- Pally / Druid BoK/MotW
-BuffEnough.spells["MotW/BoK"] = L["MotW/BoK"]
-BuffEnough.groupBuffs[BuffEnough.spells["MotW/BoK"]] = true
-BuffEnough.spellMap[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["MotW/BoK"]
-BuffEnough.spellMap[BuffEnough.spells["Mark of the Wild"]] = BuffEnough.spells["MotW/BoK"]
-
 
 BuffEnough.spells["Concentration Aura"] = GetSpellInfo(19746)
 BuffEnough.spells["Crusader Aura"] = GetSpellInfo(32223)
@@ -113,10 +121,34 @@ BuffEnough.spells["Fel/Demon Armor"] = L["Fel/Demon Armor"]
 BuffEnough.spellMap[BuffEnough.spells["Fel Armor"]] = BuffEnough.spells["Fel/Demon Armor"]
 BuffEnough.spellMap[BuffEnough.spells["Demon Armor"]] = BuffEnough.spells["Fel/Demon Armor"]
 
+
+-- Warlock Pets
+BuffEnough.spells["Fel Intelligence"] = GetSpellInfo(54424)
+BuffEnough.spells["Blood Pact"] = GetSpellInfo(6307)
+
+BuffEnough.groupBuffs[BuffEnough.spells["Fel Intelligence"]] = true
+BuffEnough.groupBuffs[BuffEnough.spells["Blood Pact"]] = true
+
 -- Warriors
 BuffEnough.spells["Battle Shout"] = GetSpellInfo(6673)
 BuffEnough.spells["Commanding Shout"] = GetSpellInfo(469)
 BuffEnough.spells["Defensive Stance"] = GetSpellInfo(71)
+
+
+-- Special combo budds
+BuffEnough.spells["MotW/BoK/EotSS (5% stats)"] = L["MotW/BoK/EotSS (5% stats)"]
+BuffEnough.groupBuffs[BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]] = true
+
+BuffEnough.spellMap[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
+BuffEnough.spellMap[BuffEnough.spells["Mark of the Wild"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
+BuffEnough.spellMap[BuffEnough.spells["Embrace of the Shale Spider"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
+
+-- Fortitude
+
+BuffEnough.spells["Fortitude/Health"] = L["Fortitude/Health"]
+BuffEnough.spellMap[BuffEnough.spells["Power Word: Fortitude"]] = BuffEnough.spells["Fortitude/Health"]
+BuffEnough.spellMap[BuffEnough.spells["Blood Pact"]] = BuffEnough.spells["Fortitude/Health"]
+BuffEnough.spellMap[BuffEnough.spells["Qiraji Fortitude"]] = BuffEnough.spells["Fortitude/Health"]
 
 -- Consumables
 BuffEnough.spells["Flask/Elixirs"] = L["Flask/Elixirs"]
@@ -151,11 +183,24 @@ BuffEnough.spellMap[BuffEnough.spells["Rumsey Rum Black Label"]] = BuffEnough.sp
 BuffEnough.spellMap[BuffEnough.spells["Enlightened"]] = BuffEnough.spells["Well Fed"]
 BuffEnough.spellMap[BuffEnough.spells["\"Well Fed\""]] = BuffEnough.spells["Well Fed"]
 
--- Gear
+-- Gear with special handling
 BuffEnough.spells["Riding Crop"] = GetItemInfo(25653)
 BuffEnough.spells["Skybreaker Whip"] = GetItemInfo(32863)
-BuffEnough.spells["Fishing Pole"] = GetSpellInfo(7738)
 BuffEnough.spells["Blessed Medallion of Karabor"] = GetItemInfo(32757)
+BuffEnough.spells["Fishing Pole"] = GetSpellInfo(7738)
+
+-- Any other gear
+BuffEnough.gear = {
+   (GetItemInfo(46349)), -- Chef's Hat
+   (GetItemInfo(33820)), -- Weather-Beaten Fishing Hat
+   (GetItemInfo(19972)), -- Lucky Fishing Hat
+   (GetItemInfo(21525)), -- Green Winter Hat
+   (GetItemInfo(21524)), -- Red Winter Hat
+   (GetItemInfo(34087)), -- Green Winter Clothes
+   (GetItemInfo(34085)), -- Red Winter Clothes
+   (GetItemInfo(34086)), -- Winter Boots
+
+ }
 
 -- Index what we know about
 for buff,value in pairs(BuffEnough.spells) do

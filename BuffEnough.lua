@@ -51,6 +51,7 @@ function BuffEnough:OnInitialize()
 
    -- Initialize persistent addon variables
    self.raidClassCount = {}
+   self.petFamilyExists = {}
    self.partyClassCount = {}
    self.lastBuffer = {}
    self.playerIsTank = false
@@ -222,8 +223,8 @@ function BuffEnough:RunCheck()
    
    -- Initialize
    self.tooltip = ""
-   self.trackedItems = {}
-   self.results = {}
+   wipe(self.trackedItems)
+   wipe(self.results)
    self.isBuffEnough = true
    self.isBuffWarning = false
 
@@ -258,7 +259,8 @@ function BuffEnough:ScanRaidParty()
    -- Initialize
    self.raidClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
    self.partyClassCount = {DEATHKNIGHT = 0, DRUID = 0, HUNTER = 0, MAGE = 0, PALADIN = 0, PRIEST = 0, ROGUE = 0, SHAMAN = 0, WARLOCK = 0, WARRIOR = 0}
-
+   wipe(self.petFamilyExists)
+   
    local unit = nil
    local groupType = nil
    local groupSize = 0
@@ -301,6 +303,11 @@ function BuffEnough:ScanRaidParty()
                self.partyClassCount[unitClass] = self.partyClassCount[unitClass] + 1
             end
 
+	    local petFamily = UnitCreatureFamily(i == 0 and "pet" or unit.."pet")
+
+	    if petFamily then
+	       self.petFamilyExists[petFamily] = true
+	    end
          end
 
       end
@@ -321,6 +328,7 @@ function BuffEnough:CheckBuffs()
    local checkingPet = self:GetProfileParam("petbuffs") and UnitExists("pet")
 
    local petPowerType = nil
+
    if checkingPet then
       petPowerType = UnitPowerType("pet")
    end
@@ -370,46 +378,61 @@ function BuffEnough:CheckBuffs()
       
       self:TrackItem(category, buff, true, false, false, duration, timeLeft)
       i = i + 1
-
    end
 
    -- What buffs should we expect (or not expect) in general
    self:TrackItem(L["Buffs"], self.spells["Crusader Aura"], false, false, true)
    self:TrackItem(L["Buffs"], self.spells["Aspect of the Pack"], false, false, true)
 
-   -- We have one or more druids or one or more paladins, check for BoK/MotW
-   if self.raidClassCount["DRUID"] > 0 or self.raidClassCount["PALADIN"] > 0 then
-      self:TrackItem(L["Buffs"], self.spells["MotW/BoK"], false, true)
+   -- We have one or more druids or one or more paladins, or a shale spider, check for 5% stats buff
+   if self.raidClassCount["DRUID"] > 0 or self.raidClassCount["PALADIN"] > 0 or
+      self.petFamilyExists[L["Shale Spider"]] then
+      self:TrackItem(L["Buffs"], self.spells["MotW/BoK/EotSS (5% stats)"], false, true)
       
       if checkingPet then
-         self:TrackItem(L["Pet"], self.spells["MotW/BoK"], false, true)
+         self:TrackItem(L["Pet"], self.spells["MotW/BoK/EotSS (5% stats)"], false, true)
       end
    end
 
-   -- We have more than 1 paladin or more than 1 pally/1 druid so check for BoM
-   if self.raidClassCount["PALADIN"] > 1
-      or (self.raidClassCount["PALADIN"] > 0 and self.raidClassCount["DRUID"] > 0) then
-      self:TrackItem(L["Buffs"], self.spells["Blessing of Might"], false, true)
+   -- Whether or not we have sufficient paladins to get BoM
+   local hasBoMPaladin = (self.raidClassCount["PALADIN"] > 1 or           -- 2 or more paladins
+			  (self.raidClassCount["PALADIN"] > 0 and         -- or 1 paladin
+			   (self.raidClassCount["DRUID"] > 0              -- and a druid
+			    or self.petFamilyExists[L["Shale Spider"]]))) -- or a shale spider
 
+   if playerPowerType == 0 -- Mana user
+      and (self.petFamilyExists[L["Felhunter"]]
+	   and (not hasBoMPaladin or self.raidClassCount.MAGE == 0)) then
+	-- We're lacking a mage and BoM, but we  have a warlock with
+	-- a Felhunter so ask for Fel Intelligence 
+      self:TrackItem(L["Buffs"], self.spells["Fel Intelligence"], false, true)
+
+      if checkingPet and petPowerType ==  0 then
+         self:TrackItem(L["Pet"], self.spells["Fel Intelligence"], false, true)
+      end
+   end
+
+   if hasBoMPaladin then
+      self:TrackItem(L["Buffs"], self.spells["Blessing of Might"], false, true)
+      
       if checkingPet then
-	 
          self:TrackItem(L["Pet"], self.spells["Blessing of Might"], false, true)
       end
    end
    
    if (self.raidClassCount["MAGE"] > 0 and playerPowerType == 0) then
-      self:TrackItem(L["Buffs"], self.spells["Arcane Intellect"], false, true)
+      self:TrackItem(L["Buffs"], self.spells["Arcane Brilliance"], false, true)
       
       if checkingPet and petPowerType == 0 then
-         self:TrackItem(L["Pet"], self.spells["Arcane Intellect"], false, true)
+         self:TrackItem(L["Pet"], self.spells["Arcane Brilliance"], false, true)
       end
    end
 
-   if self.raidClassCount["PRIEST"] > 0 then
-      self:TrackItem(L["Buffs"], self.spells["Power Word: Fortitude"], false, true)
+   if self.raidClassCount["PRIEST"] > 0 or self.petFamilyExists[L["Imp"]] or self.petFamilyExists[L["Silithid"]] then
+      self:TrackItem(L["Buffs"], self.spells["Fortitude/Health"], false, true)
       
       if checkingPet then
-         self:TrackItem(L["Pet"], self.spells["Power Word: Fortitude"], false, true)
+         self:TrackItem(L["Pet"], self.spells["Fortitude/Health"], false, true)
       end
    end
 
@@ -541,10 +564,10 @@ function BuffEnough:CheckGear()
       self:TrackItem(L["Gear"], self.spells["Skybreaker Whip"], true, false, true)
    end
 
-   -- If shadow resistance is <= 120, then we're probably not stacking
+   -- If shadow resistance is <= 160, then we're probably not stacking
    -- shadow resist and don't mean to be wearing the medallion
    if (IsEquippedItem(self.spells["Blessed Medallion of Karabor"]) and
-      select(2, UnitResistance("player", 5)) <= 120)
+      select(2, UnitResistance("player", 5)) <= 160)
    then
       self:TrackItem(L["Gear"], self.spells["Blessed Medallion of Karabor"], true, false, true)
    end
@@ -554,6 +577,11 @@ function BuffEnough:CheckGear()
       self:TrackItem(L["Gear"], self.spells["Fishing Pole"], true, false, true)
    end
 
+   for _,item in pairs(BuffEnough.gear) do
+      if IsEquippedItem(item) then
+	 self:TrackItem(L["Gear"], item, true, false, true)
+      end
+   end
 end
 
 
@@ -918,7 +946,7 @@ function BuffEnough:RecordLastBuffer(_, _, eventType, srcGUID, srcName, _, dstGU
           -- or it's a raid/party-wide buff 
          self.groupBuffs[spellName])
       then
-         if self.spellMap[spellName] then
+	 if self.spellMap[spellName] then
             spellName = self.spellMap[spellName]
          end
 

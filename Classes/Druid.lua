@@ -28,5 +28,11 @@ local Druid = BuffEnough:GetOrCreateModule("Player")
      Check class buffs
 ----------------------------------------------------------------------------- ]]
 function Druid:CheckClassBuffs()
-    if BuffEnough.debug then BuffEnough:debug("Checking druid buffs") end
+   if BuffEnough.debug then BuffEnough:debug("Checking druid buffs") end
+
+    local isBoomkinSpec = GetPrimaryTalentTree() == 1
+    if isBoomkinSpec then 
+       BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Moonkin Form"], false, true, false, nil, nil, true)
+    end
+
 end
