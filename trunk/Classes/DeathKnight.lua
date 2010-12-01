@@ -33,7 +33,7 @@ function DeathKnight:CheckClassBuffs()
     if UnitAffectingCombat("player") and not BuffEnough:HasTrackedItem(L["Buffs"], BuffEnough.spells["Strength of Earth"]) then
 		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
     end
-    
+
     local isGhoulSpec = GetPrimaryTalentTree() == 3
     
     if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
@@ -46,13 +46,19 @@ function DeathKnight:CheckClassBuffs()
     else
     	BuffEnough.options.args.pet.guiHidden = true
     end
-    
-    local isBloodPresence = GetShapeshiftForm(false) == 1
-    
-    if BuffEnough.playerIsTank then
-        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], isBloodPresence, true, false, nil, nil, true)
-    else
-        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], isBloodPresence, false, true, nil, nil, true)
-    end
 
-end
+    local shapeShiftForm = GetShapeshiftForm(false)
+    if shapeShiftForm == 0 then
+       if BuffEnough.playerIsTank then
+	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], false, true, false, nil, nil, true)
+       else
+	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Presence"], false, true, true, nil, nil, true)
+       end	  
+    else
+       if BuffEnough.playerIsTank then
+	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], shapeShiftForm == 1, true, false, nil, nil, true)
+       else
+	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], shapeShiftForm == 1, false, true, nil, nil, true)
+       end
+    end
+ end
