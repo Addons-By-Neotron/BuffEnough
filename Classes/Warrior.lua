@@ -28,50 +28,28 @@ local Warrior = BuffEnough:GetOrCreateModule("Player")
      Check class buffs
 ----------------------------------------------------------------------------- ]]
 function Warrior:CheckClassBuffs()
-
-    if BuffEnough.debug then BuffEnough:debug("Checking warrior buffs") end
-
-    if UnitAffectingCombat("player") then
-     
-    	if BuffEnough:IsExpectingTrackedItem(L["Buffs"], BuffEnough.spells["Blessing of Might"]) then
-    
-    		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Commanding Shout"], false, true, false, nil, nil, true)
-    	
-		elseif BuffEnough.partyClassCount["WARRIOR"] > 1 then
-		
-            BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Battle Shout"], false, true, false, nil, nil, true)
-            BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Commanding Shout"], false, true, false, nil, nil, true)
-            
-        elseif not BuffEnough.trackedItems[BuffEnough.spells["Battle Shout"]] and
-               not BuffEnough.trackedItems[BuffEnough.spells["Commanding Shout"]]
-        then
-        
-            if select(5, GetTalentTabInfo(3)) > 30 then
-            	BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Commanding Shout"], false, true, false, nil, nil, true)
-            else
-            	BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Battle Shout"], false, true, false, nil, nil, true)
-            end
-            
-        end
-        
-    end
-    
-    local isDefensiveStance = GetShapeshiftForm(true) == 2
-    
-    if BuffEnough.playerIsTank then
-        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Defensive Stance"], isDefensiveStance, true, false, nil, nil, true)
-    else
-        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Defensive Stance"], isDefensiveStance, false, true, nil, nil, true)
-    end
-
-end
-
-
---[[ ---------------------------------------------------------------------------
-     Formulate priority list for paladin blessings
------------------------------------------------------------------------------ ]]
-function Warrior:GetPaladinBlessingList()
-
-	return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"]}
-
+   if BuffEnough.debug then BuffEnough:debug("Checking warrior buffs") end
+   
+   if UnitAffectingCombat("player") then
+      local expectsMight = BuffEnough:IsExpectingTrackedItem(L["Buffs"], BuffEnough.spells["Blessing of Might"])
+      local expectsHealth = BuffEnough:IsExpectingTrackedItem(L["Buffs"], BuffEnough.spells["Fortitude/Health"]) 
+      if expectsMight and not expectsHealth then
+	 BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Commanding Shout"], false, true, false, nil, nil, true)
+      elseif not expectsMight and expectsHealth then
+	 BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Battle Shout"], false, true, false, nil, nil, true)
+      else
+	 if BuffEnough.partyClassCount["WARRIOR"] > 1 then	 
+	    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Battle Shout"], false, true, false, nil, nil, true)
+	 end
+	 BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Commanding Shout"], false, true, false, nil, nil, true)
+      end
+   end
+   
+   local isDefensiveStance = GetShapeshiftForm(true) == 2
+   
+   if BuffEnough.playerIsTank then
+      BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Defensive Stance"], isDefensiveStance, true, false, nil, nil, true)
+   else
+      BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Defensive Stance"], isDefensiveStance, false, true, nil, nil, true)
+   end   
 end
