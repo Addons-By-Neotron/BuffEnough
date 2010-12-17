@@ -114,6 +114,7 @@ BuffEnough.spellMap[BuffEnough.spells["Earth Shield"]] = BuffEnough.spells["Elem
 BuffEnough.spellMap[BuffEnough.spells["Water Shield"]] = BuffEnough.spells["Elemental Shield"]
 
 -- Warlocks
+BuffEnough.spells["Dark Intent"] = GetSpellInfo(80398)
 BuffEnough.spells["Fel Armor"] = GetSpellInfo(28176)
 BuffEnough.spells["Demon Armor"] = GetSpellInfo(687)
 BuffEnough.spells["Fel/Demon Armor"] = L["Fel/Demon Armor"]
