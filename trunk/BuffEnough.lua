@@ -272,9 +272,13 @@ function BuffEnough:ScanRaidParty()
       groupType = "raid"
       groupSize = GetNumRaidMembers()
       startNum = 1
+      self.groupSize = groupSize
    elseif GetNumPartyMembers() > 0 then
       groupType = "party"
       groupSize = GetNumPartyMembers()
+      self.groupSize = 1 + groupSize
+   else
+      self.groupSize = 1
    end
 
    -- Tally up the raid/party, check talents if needed
