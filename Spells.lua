@@ -136,6 +136,10 @@ BuffEnough.spells["Commanding Shout"] = GetSpellInfo(469)
 BuffEnough.spells["Defensive Stance"] = GetSpellInfo(71)
 
 
+-- Scrolls
+BuffEnough.spells["Scroll Fortitude"] = GetSpellInfo(86507)
+BuffEnough.spells["Scroll Drums The Wild"] = GetSpellInfo(89050)
+
 -- Special combo budds
 BuffEnough.spells["MotW/BoK/EotSS (5% stats)"] = L["MotW/BoK/EotSS (5% stats)"]
 BuffEnough.groupBuffs[BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]] = true
@@ -143,23 +147,25 @@ BuffEnough.groupBuffs[BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]] = true
 BuffEnough.spellMap[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
 BuffEnough.spellMap[BuffEnough.spells["Mark of the Wild"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
 BuffEnough.spellMap[BuffEnough.spells["Embrace of the Shale Spider"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
-
+BuffEnough.spellMap[BuffEnough.spells["Scroll Drums The Wild"]] = BuffEnough.spells["MotW/BoK/EotSS (5% stats)"]
 -- Fortitude
-
 BuffEnough.spells["Fortitude/Health"] = L["Fortitude/Health"]
 BuffEnough.spellMap[BuffEnough.spells["Power Word: Fortitude"]] = BuffEnough.spells["Fortitude/Health"]
 BuffEnough.spellMap[BuffEnough.spells["Blood Pact"]] = BuffEnough.spells["Fortitude/Health"]
 BuffEnough.spellMap[BuffEnough.spells["Qiraji Fortitude"]] = BuffEnough.spells["Fortitude/Health"]
+-- we count these but don't ask for it
+BuffEnough.spellMap[BuffEnough.spells["Commanding Shout"]] = BuffEnough.spells["Fortitude/Health"] 
+BuffEnough.spellMap[BuffEnough.spells["Scroll Fortitude"]] = BuffEnough.spells["Fortitude/Health"] 
 
 -- Consumables
 BuffEnough.spells["Flask/Elixirs"] = L["Flask/Elixirs"]
 BuffEnough.spells["Battle Elixir"] = L["Battle Elixir"]
 BuffEnough.spells["Guardian Elixir"] = L["Guardian Elixir"]
 
-BuffEnough.flasks[GetSpellInfo(17629)] = "Chromatic Resistance"
-BuffEnough.flasks[GetSpellInfo(42735)] = "Chromatic Wonder"
-BuffEnough.flasks[GetSpellInfo(17627)] = "Distilled Wisdom"
-BuffEnough.flasks[GetSpellInfo(17628)] = "Supreme Power"
+-- The new alchemy flask - maybe shouldn't count but alas.
+BuffEnough.flasks["Enhanced Intellect"] = GetSpellInfo(79640)
+BuffEnough.flasks["Enhanced Strength"] = GetSpellInfo(79638)
+BuffEnough.flasks["Enhanced Agility"] = GetSpellInfo(79639)
 
 BuffEnough.battleElixirs[GetSpellInfo(60344)] = "Expertise"
 BuffEnough.battleElixirs[GetSpellInfo(28497)] = "Mighty Agility"

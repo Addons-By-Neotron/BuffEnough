@@ -342,7 +342,7 @@ function BuffEnough:CheckBuffs()
    while true do
    
       local category = L["Buffs"]
-      local buff, _, _, _, _, duration, expTime, _, _ = UnitBuff("player", i)
+      local buff, _, _, _, _, duration, expTime, caster = UnitBuff("player", i)
       if not buff then break end
       local timeLeft = expTime and (expTime - GetTime()) or 0
 
@@ -380,7 +380,7 @@ function BuffEnough:CheckBuffs()
          duration = 1800
       end
       
-      self:TrackItem(category, buff, true, false, false, duration, timeLeft)
+      self:TrackItem(category, buff, true, false, false, duration, timeLeft, nil, nil, caster)
       i = i + 1
    end
 
@@ -635,27 +635,38 @@ end
 --    As we discover buffs that we should have, or buffs that we do have,
 --    they get recorded here
 ------------------------------------------------------------------------------- ]]
-function BuffEnough:TrackItem(category, itemName, isPresent, isExpected, isUnexpected, duration, timeLeft, dontReport, statusOverride)
+function BuffEnough:TrackItem(category, itemName, isPresent, isExpected, isUnexpected, duration, timeLeft, dontReport, statusOverride, caster, isSelfOnly)
 
    -- Create the category entry if this is the first one
    if not self.trackedItems[category] then
       self.trackedItems[category] = {}
    end
-   
+   local entry =  self.trackedItems[category][itemName] or {}
    -- Create the item entry if this is the first one
    if not self.trackedItems[category][itemName] then
-      self.trackedItems[category][itemName] = {}
-      self.trackedItems[category][itemName].statusOverride = statusOverride
-      self.trackedItems[category][itemName].isCloseToExpire = false
-      self.trackedItems[category][itemName].dontReport = false
+      self.trackedItems[category][itemName] = entry
+      entry.statusOverride = statusOverride
+      entry.isCloseToExpire = false
+      entry.dontReport = false
+   end
+   -- Record item attributes
+   entry.isSelfOnly = entry.isSelfOnly or isSelfOnly
+   entry.isPresent = entry.isPresent or isPresent
+   entry.isExpected = entry.isExpected or isExpected
+   entry.isUnexpected = entry.isUnexpected or isUnexpected
+   entry.dontReport = entry.dontReport or dontReport
+
+   -- caster is only used for tracking self only buffs.
+   if not entry.caster or (caster == "player" and entry.caster ~= "player") then
+      entry.caster = caster
    end
 
-   -- Record item attributes
-   self.trackedItems[category][itemName].isPresent = self.trackedItems[category][itemName].isPresent or isPresent
-   self.trackedItems[category][itemName].isExpected = self.trackedItems[category][itemName].isExpected or isExpected
-   self.trackedItems[category][itemName].isUnexpected = self.trackedItems[category][itemName].isUnexpected or isUnexpected
-   self.trackedItems[category][itemName].dontReport = self.trackedItems[category][itemName].dontReport or dontReport
-   
+   -- This is a self only buff, so if the buff wasn't cast by the player, consider it not
+   -- cast
+   if entry.isSelfOnly and entry.caster and entry.caster ~= "player" then
+      entry.isPresent = nil
+   end
+
    -- Determine if about to expire
    if (duration and duration > 0 and
       timeLeft and timeLeft > 0 and
@@ -663,7 +674,7 @@ function BuffEnough:TrackItem(category, itemName, isPresent, isExpected, isUnexp
       (self:GetProfileParam("warnthreshold") * 60) >= timeLeft and
       (self:GetProfileParam("warnmin") == 0 or (self:GetProfileParam("warnmin") * 60) <= duration))
    then
-      self.trackedItems[category][itemName].isCloseToExpire = true
+      entry.isCloseToExpire = true
    end
    
 end

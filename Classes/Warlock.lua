@@ -33,14 +33,10 @@ function Warlock:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking warlock buffs") end
 
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Fel/Demon Armor"], false, true, false, nil, nil, true)
-    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Dark Intent"], false, true, false, nil, nil, true)
-
+    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Dark Intent"], false, true, false, nil, nil, true, nil, nil, true)
     if not IsMounted() then
        if not UnitExists("pet") then
 	  BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
-       elseif BuffEnough.groupSize == 1 then
-	  -- IF we're solo, we should have dark intent on the pet - it falls off.
-	  BuffEnough:TrackItem(L["Pet"], BuffEnough.spells["Dark Intent"], false, true)
        end
     else
        BuffEnough:TrackItem(L["Pet"], L["Pet"], true, false, false, nil, nil, true)
