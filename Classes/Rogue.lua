@@ -22,7 +22,9 @@ if select(2, UnitClass("player")) ~= "ROGUE" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local Rogue = BuffEnough:GetOrCreateModule("Player")
-
+local thrownSlotId = GetInventorySlotInfo("RangedSlot")
+local GetInventoryItemLink = GetInventoryItemLink
+local GetItemInfo = GetItemInfo
 
 --[[ ---------------------------------------------------------------------------
      Check class buffs
@@ -32,6 +34,10 @@ function Rogue:CheckClassBuffs()
     if BuffEnough.debug then BuffEnough:debug("Checking rogue buffs") end
 
     BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
-	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
+    BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
 
+    local itemLink = GetInventoryItemLink("player", thrownSlotId)
+    if itemLink and select(9, GetItemInfo(itemLink)) == "INVTYPE_THROWN" then
+       BuffEnough:TrackItem(L["Buffs"], L["Thrown Weapon Buff"], false, true, false, nil, nil, true)
+    end
 end

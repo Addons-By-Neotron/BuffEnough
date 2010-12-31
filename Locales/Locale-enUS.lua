@@ -117,6 +117,8 @@ L["RangedSlot"] = "Ranged"
 
 L["Mainhand Buff"] = true
 L["Offhand Buff"] = true
+L["Mainhand Buff"] = true
+L["Thrown Weapon Buff"] = true
 L["Rune of Warding"] = true
 
 -- tooltip output
@@ -149,7 +151,6 @@ L["Presence"] = true
 L["Elemental Shield"] = true
 L["Flask/Elixirs"] = true
 L["Flask of"] = true
-L["of Shattrath"] = true
 L["Battle Elixir"] = true
 L["Guardian Elixir"] = true
 
