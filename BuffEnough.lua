@@ -356,7 +356,7 @@ function BuffEnough:CheckBuffs()
 
          G:SetUnitBuff("player", i)
 
-         if (self.flasks[buff] or string.find(buff, L["Flask of "])) then
+         if (self.flasks[buff] or string.find(buff, L["Flask of"])) then
             buff = self.spells["Flask/Elixirs"]
             category = L["Consumables"]
             duration = 3600
