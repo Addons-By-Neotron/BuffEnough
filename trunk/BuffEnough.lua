@@ -356,10 +356,7 @@ function BuffEnough:CheckBuffs()
 
          G:SetUnitBuff("player", i)
 
-         if (string.find(buff, L["Flask of"]) or
-            string.find(buff, L["of Shattrath"]) or
-            self.flasks[buff])
-         then
+         if (self.flasks[buff] or string.find(buff, L["Flask of "])) then
             buff = self.spells["Flask/Elixirs"]
             category = L["Consumables"]
             duration = 3600
@@ -537,10 +534,11 @@ function BuffEnough:CheckGear()
    end
 
    -- Check for temporary weapon enchants
-   local hasMHEnchant, mhExp, _, hasOHEnchant, ohExp = GetWeaponEnchantInfo()
+   local hasMHEnchant, mhExp, _, hasOHEnchant, ohExp, _, hasThrowEnchant, throwExp = GetWeaponEnchantInfo()
    
    if mhExp then mhExp = mhExp / 1000 end
    if ohExp then ohExp = ohExp / 1000 end
+   if throwExp then throwExp = throwExp / 1000 end
    
    if hasMHEnchant then
       self:TrackItem(L["Buffs"], L["Mainhand Buff"], true, false, false, 3600, mhExp)
@@ -548,6 +546,10 @@ function BuffEnough:CheckGear()
    
    if hasOHEnchant then
       self:TrackItem(L["Buffs"], L["Offhand Buff"], true, false, false, 3600, ohExp)
+   end
+
+   if hasThrowEnchant then
+      self:TrackItem(L["Buffs"], L["Thrown Weapon Buff"], true, false, false, 3600, throwExp)
    end
    
    -- Check for temporary chest enchants
