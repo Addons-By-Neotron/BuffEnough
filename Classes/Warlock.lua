@@ -39,6 +39,8 @@ function Warlock:CheckClassBuffs()
     if not IsMounted() then
        if not UnitExists("pet") then
 	  BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
+       else
+	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Soul Link"], false, true, false, nil, nil, true)
        end
     else
        BuffEnough:TrackItem(L["Pet"], L["Pet"], true, false, false, nil, nil, true)

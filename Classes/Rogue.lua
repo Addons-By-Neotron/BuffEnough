@@ -37,7 +37,8 @@ function Rogue:CheckClassBuffs()
     BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
 
     local itemLink = GetInventoryItemLink("player", thrownSlotId)
-    if itemLink and select(9, GetItemInfo(itemLink)) == "INVTYPE_THROWN" then
+    -- Check thrown weapon but only if they don't have the talent that uses main hand poison.
+    if itemLink and select(9, GetItemInfo(itemLink)) == "INVTYPE_THROWN" and select(5, GetTalentInfo(1, 10)) ~= 3 then
        BuffEnough:TrackItem(L["Buffs"], L["Thrown Weapon Buff"], false, true, false, nil, nil, true)
     end
 end
