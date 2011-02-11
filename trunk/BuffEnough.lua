@@ -737,8 +737,8 @@ function BuffEnough:RenderTooltip()
          for buff,status in pairs(res) do
             
             self.tooltip = self.tooltip.."\n  "..status.." |cffffffff"..buff
-            
-            if (UnitExists(self.lastBuffer[buff])) then
+
+            if UnitExists(self.lastBuffer[buff]) and not self.trackedItems[heading][buff].isSelfOnly  then
                self.tooltip = self.tooltip.." ("..self.lastBuffer[buff]..")|r"
             else
                self.tooltip = self.tooltip.."|r"
@@ -843,7 +843,7 @@ function BuffEnough:WhisperResults(unitId)
    if self.results[category] then   
 
       for buff,status in pairs(self.results[category]) do
-          if not self.trackedItems[category][buff].dontReport then
+          if not self.trackedItems[category][buff].dontReport or self.trackedItems[category][buff].isSelfOnly then
              whisperedBuff = true
              if UnitExists(self.lastBuffer[buff]) then
                SendChatMessage(L["BuffEnough"]..": "..UnitName(unitId).." "..status.." "..buff, "WHISPER", nil, self.lastBuffer[buff])

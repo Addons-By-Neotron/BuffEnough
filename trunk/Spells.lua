@@ -78,7 +78,7 @@ BuffEnough.spellMap[BuffEnough.spells["Molten Armor"]] = BuffEnough.spells["Mage
 
 BuffEnough.groupBuffs[BuffEnough.spells["Arcane Brilliance"]] = true
 BuffEnough.groupBuffs[BuffEnough.spells["Dalaran Brilliance"]] = true
-BuffEnough.spellMap[BuffEnough.spells["Dalaran Brilliance"]] = BuffEnough.spells["Dalaran Brilliance"]
+BuffEnough.spellMap[BuffEnough.spells["Dalaran Brilliance"]] = BuffEnough.spells["Arcane Brilliance"]
 
 -- Paladins
 BuffEnough.spells["Blessing of Kings"] = GetSpellInfo(20217)
@@ -114,6 +114,7 @@ BuffEnough.spellMap[BuffEnough.spells["Earth Shield"]] = BuffEnough.spells["Elem
 BuffEnough.spellMap[BuffEnough.spells["Water Shield"]] = BuffEnough.spells["Elemental Shield"]
 
 -- Warlocks
+BuffEnough.spells["Soul Link"] = GetSpellInfo(19028)
 BuffEnough.spells["Dark Intent"] = GetSpellInfo(80398)
 BuffEnough.spells["Fel Armor"] = GetSpellInfo(28176)
 BuffEnough.spells["Demon Armor"] = GetSpellInfo(687)
