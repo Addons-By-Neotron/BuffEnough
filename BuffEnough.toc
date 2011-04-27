@@ -1,4 +1,4 @@
-## Interface: 40000
+## Interface: 40100
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
 ## Author: NeoTron
