@@ -950,9 +950,17 @@ end
 --[[ ---------------------------------------------------------------------------
 --    Record who last cast a buff on the player
 ----------------------------------------------------------------------------- ]]
-function BuffEnough:RecordLastBuffer(_, _, eventType, _, srcGUID, srcName, _, dstGUID, dstName, _, _, spellName)
+function BuffEnough:RecordLastBuffer(_, _, eventType, _, srcGUID, srcName, _, sourceRaidFlags, dstGUID, dstName, dstFlags, destRaidFlags, spellid, spellName)
 
    -- if a known buff spell is successfully cast by someone other than the player
+   if type(sourceRaidFlags) == "string" then
+      -- 4.1 compatibility
+      spellName = destRaidFlags
+      spellid = dstFlags
+      dstflags = dstName
+      dstName = dstGUID
+      dstGUID = sourceRaidFlags
+   end
    if eventType == "SPELL_CAST_SUCCESS" and
       self.knownSpells[spellName] and
       srcGUID ~= UnitGUID("player") and
