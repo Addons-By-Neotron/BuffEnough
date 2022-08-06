@@ -1,3 +1,4 @@
+# BuffEnough - Simple buff checker for raids and open world
 ## About
 
 BuffEnough is a personal buff monitor that answers the simple question 'Am I buff enough?' If you're like me, when a raid leader does a ready check, you go through a mental checklist as you look over your buffs and gear, to make sure that you really are ready. Did I remember to do my own buff, do I have all pally blessings, do I have the correct pet out, am I still flasked/elixired, is my durability okay, did I forget to take off my riding crop, etc, etc. This is what BuffEnough does for you. It scans the raid to figure out what you should have, and then scans your buffs and gear to figure out what you do have. If the box is green, the answer is 'yes', you're buff enough. If the box is red or yellow, then you're still missing something and hovering your mouse over the box will tell you what it is in the tooltip. 
