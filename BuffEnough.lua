@@ -133,8 +133,7 @@ function BuffEnough:OnInitialize()
 	self:DisplayCustomBuffs()
 	
 	-- Register the events that might enable the addon
-	self:RegisterBucketEvent("RAID_ROSTER_UPDATE", .2, "CheckRaidChange")
-	self:RegisterBucketEvent("PARTY_MEMBERS_CHANGED", .2, "CheckRaidChange")
+	self:RegisterBucketEvent("GROUP_ROSTER_UPDATE", .2, "CheckRaidChange")
 
 end
 
@@ -144,7 +143,7 @@ end
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:OnEnable()
 
-	local isSolo = GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0
+	local isSolo = GetNumGroupMembers() == 0
 	
 	if isSolo and not self:GetProfileParam("solo") then
 		self:SetProfileParam("enable", false)
@@ -268,18 +267,18 @@ function BuffEnough:ScanRaidParty()
 
 	local unit = nil
 	local groupType = nil
-	local groupSize = 0
+	local groupSize = GetNumGroupMembers()
 	local startNum = 0
 	local playerZone = GetRealZoneText()
 
 	-- Determine group size
-	if GetNumRaidMembers() > 0 then
-		groupType = "raid"
-		groupSize = GetNumRaidMembers()
-		startNum = 1
-	elseif GetNumPartyMembers() > 0 then
-		groupType = "party"
-		groupSize = GetNumPartyMembers()
+	if groupSize > 0 then
+		if UnitInRaid("player") then
+			groupType = "raid"
+			startNum = 1
+		else
+			groupType = "party"
+		end
 	end
 
 	-- Tally up the raid/party, check talents if needed
@@ -294,11 +293,7 @@ function BuffEnough:ScanRaidParty()
 		if UnitExists(unit) then
 
 			local unitClass = select(2, UnitClass(unit))
-			local unitZone = nil
-
-			if ((groupType == "raid") and (UnitInRaid(unit))) then
-				unitZone = select(7, GetRaidRosterInfo(i))
-			end
+			local unitZone = select(7, GetRaidRosterInfo(i))
 
 			if ((not unitZone or unitZone == playerZone) and unitClass) then
 
@@ -330,7 +325,7 @@ function BuffEnough:CheckBuffs()
 
 	-- Initialize
 	local playerPowerType = UnitPowerType("player")
-	local checkingConsumables = (GetNumRaidMembers() > 0) or (not self:GetProfileParam("consumablesinraid"))
+	local checkingConsumables = UnitInRaid("player") or (not self:GetProfileParam("consumablesinraid"))
 	local checkingPet = self:GetProfileParam("petbuffs") and UnitExists("pet")
 
 	local petPowerType = nil
@@ -343,7 +338,7 @@ function BuffEnough:CheckBuffs()
 	while true do
 	
 		local category = L["Buffs"]
-		local buff, _, _, _, _, duration, expTime, _, _ = UnitBuff("player", i)
+		local buff, _, _, _, duration, expTime, _, _ = UnitBuff("player", i)
 		if not buff then break end
 		local timeLeft = expTime and (expTime - GetTime()) or 0
 
@@ -534,7 +529,7 @@ function BuffEnough:CheckGear()
 	end
 	
 	-- Check for temporary chest enchants
-	local checkingConsumables = ((GetNumRaidMembers() > 0) or (not self:GetProfileParam("consumablesinraid")))
+	local checkingConsumables = (UnitInRaid("player")  or (not self:GetProfileParam("consumablesinraid")))
 	if checkingConsumables and self:GetProfileParam("chest") then
 		G:SetInventoryItem("player", select(1,GetInventorySlotInfo("ChestSlot")))
 		if not G:Find(L["Rune of Warding"]) then
@@ -746,9 +741,9 @@ function BuffEnough:PrintResults(unitId)
 		return
 	end
 	
-	if GetNumRaidMembers() > 0 then
+	if UnitInRaid("player") then
 		dest = "RAID"
-	elseif GetNumPartyMembers() > 0 then
+	elseif GetNumGroupMembers() > 0 then
 		dest = "PARTY"
 	else
 		solo = true
@@ -788,7 +783,7 @@ function BuffEnough:WhisperResults(unitId)
 	local category = nil
 	local whisperedBuff = false
 	
-	if GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0 then
+	if GetNumGroupMembers() == 0 then
 		self:PrintResults(unitId)
 		return
 	end
@@ -932,7 +927,7 @@ end
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:CheckRaidChange()
 
-	local isSolo = GetNumRaidMembers() == 0 and GetNumPartyMembers() == 0
+	local isSolo = GetNumGroupMembers()
 
 	if not isSolo and not self:GetProfileParam("enable") then
 		self:DoEnable()

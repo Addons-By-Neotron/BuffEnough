@@ -1,11 +1,11 @@
-## Interface: 30100
+## Interface: 30400
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
 ## Author: Nikkodemus
 ## DefaultState: enabled
 ## X-Category: Buffs
-## OptionalDeps: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
-## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
+## OptionalDeps: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
+## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
 ## SavedVariables: BuffEnoughDB
 
 #@no-lib-strip@

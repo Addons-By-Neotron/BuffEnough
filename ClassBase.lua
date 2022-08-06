@@ -86,7 +86,7 @@ function prototype:CheckPetBuffs()
 	end
     
     if BuffEnough:GetProfileParam("petfood") and
-       ((GetNumRaidMembers() > 0) or (not BuffEnough:GetProfileParam("consumablesinraid")))
+       (UnitInRaid("player") or (not BuffEnough:GetProfileParam("consumablesinraid")))
     then
     
 		BuffEnough:TrackItem(L["Pet"], BuffEnough.spells["Well Fed"], false, true, false, nil, nil, true)

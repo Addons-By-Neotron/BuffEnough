@@ -37,7 +37,7 @@ function BuffEnough:CreateFrame()
 	self.Anchor:SetWidth(100)
 
         -- Display
-	self.Display = CreateFrame("Frame", "BuffEnoughDisplay", self.Anchor)
+	self.Display = CreateFrame("Frame", "BuffEnoughDisplay", self.Anchor, BackdropTemplateMixin and "BackdropTemplate")
 	self.Display:SetResizable(true)
 	self.Display:EnableMouse(true)
 	self.Display:SetPoint("TOPLEFT", self.Anchor, "TOPLEFT")
