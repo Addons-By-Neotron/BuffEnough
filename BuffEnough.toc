@@ -7,6 +7,9 @@
 ## OptionalDeps: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
 ## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
 ## SavedVariables: BuffEnoughDB
+## X-Curse-Project-ID: 13579
+## X-WoWI-ID: 8953
+## X-Wago-ID: yQKyMEK7
 
 #@no-lib-strip@
 Libs\LibStub\LibStub.lua
