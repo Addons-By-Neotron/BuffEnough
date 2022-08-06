@@ -30,7 +30,7 @@ BuffEnough is a personal buff monitor that answers the simple question 'Am I buf
 * You should not be wearing a fishing pole
 * You should not be wearing Blessed Medallion of Karabor if your shadow resist is <= 120
 
-###Druid
+### Druid
 
 * If you have Omen of Clarity talent, it should be up
 
