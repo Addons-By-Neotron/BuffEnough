@@ -117,8 +117,6 @@ L["RangedSlot"] = "Ranged"
 
 L["Mainhand Buff"] = true
 L["Offhand Buff"] = true
-L["Mainhand Buff"] = true
-L["Thrown Weapon Buff"] = true
 L["Rune of Warding"] = true
 
 -- tooltip output
@@ -142,21 +140,12 @@ L["Currently disabled"] = true
 
 -- buffs
 
-L["MotW/BoK/EotSS (5% stats)"] = true
-L["Fortitude/Health"] = true
 L["Mage/Molten Armor"] = true
 L["Fel/Demon Armor"] = true
 L["Aspect"] = true
-L["Presence"] = true
 L["Elemental Shield"] = true
 L["Flask/Elixirs"] = true
 L["Flask of"] = true
+L["of Shattrath"] = true
 L["Battle Elixir"] = true
 L["Guardian Elixir"] = true
-
--- pets with buffs we care about
-
-L["Imp"] = true
-L["Felhunter"] = true
-L["Silithid"] = true
-L["Shale Spider"] = true

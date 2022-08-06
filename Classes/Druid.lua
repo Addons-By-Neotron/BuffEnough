@@ -28,11 +28,23 @@ local Druid = BuffEnough:GetOrCreateModule("Player")
      Check class buffs
 ----------------------------------------------------------------------------- ]]
 function Druid:CheckClassBuffs()
-   if BuffEnough.debug then BuffEnough:debug("Checking druid buffs") end
 
-    local isBoomkinSpec = GetPrimaryTalentTree() == 1
-    if isBoomkinSpec then 
-       BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Moonkin Form"], false, true, false, nil, nil, true)
+    if BuffEnough.debug then BuffEnough:debug("Checking druid buffs") end
+
+end
+
+--[[ ---------------------------------------------------------------------------
+     Formulate priority list for paladin blessings
+----------------------------------------------------------------------------- ]]
+function Druid:GetPaladinBlessingList()
+
+    if select(3, GetTalentTabInfo(1)) > 40 then
+        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
+    elseif select(3, GetTalentTabInfo(2)) > 40 then
+        return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"], BuffEnough.spells["Blessing of Might"]}
+    else
+        return {BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
     end
 
 end
+

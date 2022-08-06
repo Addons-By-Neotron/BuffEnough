@@ -26,6 +26,13 @@ local C = LibStub("AceConfigDialog-3.0")
 	 Create dropdowns
 ----------------------------------------------------------------------------- ]]
 
+local blessingsDropdown = {}
+blessingsDropdown[BuffEnough.spells["Blessing of Kings"]] = BuffEnough.spells["Blessing of Kings"]
+blessingsDropdown[BuffEnough.spells["Blessing of Might"]] = BuffEnough.spells["Blessing of Might"]
+blessingsDropdown[BuffEnough.spells["Blessing of Sanctuary"]] = BuffEnough.spells["Blessing of Sanctuary"]
+blessingsDropdown[BuffEnough.spells["Blessing of Wisdom"]] = BuffEnough.spells["Blessing of Wisdom"]
+blessingsDropdown[L["None"]] = L["None"]
+
 local customCategoryDropdown = {}
 customCategoryDropdown[L["Buffs"]] = L["Buffs"]
 customCategoryDropdown[L["Gear"]] = L["Gear"]
@@ -122,6 +129,68 @@ BuffEnough.options = {
 							BuffEnough:SetProfileParam("fade", v)
 							BuffEnough:UpdateDisplay()
 				  		end	
+				},
+			},
+		},
+		blessings = {
+			type = "group",
+			name = L["Blessings"],
+			set = "SetProfileParam",
+			get = "GetProfileParam",
+			cmdHidden = true,
+			order = 3,
+			args = {
+				override = {
+					type = "toggle",
+					name = L["Override"],
+					desc = L["Overrides the default paladin blessing priority and uses the priority you specify."],
+					width = "full",
+					order = 0,
+					get = function(info) return BuffEnough:GetProfileParam("overrideblessings") end,
+					set = function(info, v)
+							BuffEnough:SetProfileParam("overrideblessings", v)
+							BuffEnough:RunCheck()
+						  end	
+				},
+				blessing1 = {
+					type = "select",
+					name = L["Blessing"].."1",
+					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
+					values = blessingsDropdown,
+					set = function(info, v)
+							BuffEnough:SetProfileParam("blessing1", v)
+							BuffEnough:RunCheck()
+						  end	
+				},
+				blessing2 = {
+					type = "select",
+					name = L["Blessing"].."2",
+					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
+					values = blessingsDropdown,
+					set = function(info, v)
+							BuffEnough:SetProfileParam("blessing2", v)
+							BuffEnough:RunCheck()
+						  end	
+				},
+				blessing3 = {
+					type = "select",
+					name = L["Blessing"].."3",
+					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
+					values = blessingsDropdown,
+					set = function(info, v)
+							BuffEnough:SetProfileParam("blessing3", v)
+							BuffEnough:RunCheck()
+						  end	
+				},
+				blessing4 = {
+					type = "select",
+					name = L["Blessing"].."4",
+					disabled = function() return not BuffEnough:GetProfileParam("overrideblessings") end,
+					values = blessingsDropdown,
+					set = function(info, v)
+							BuffEnough:SetProfileParam("blessing4", v)
+							BuffEnough:RunCheck()
+						  end	
 				},
 			},
 		},
@@ -266,6 +335,68 @@ BuffEnough.options = {
 							BuffEnough:SetProfileParam("petfood", v)
 							BuffEnough:RunCheck()
 				  		end
+				},
+				petblessings = {
+					type = "group",
+					name = L["Pet"].." "..L["Blessings"],
+					set = "SetProfileParam",
+					get = "GetProfileParam",
+					guiInline = true,
+					order = 3,
+					args = {
+						petoverride = {
+							type = "toggle",
+							name = L["Override"],
+							desc = L["Overrides the default paladin blessing priority and uses the priority you specify."],
+							width = "full",
+							order = 0,
+							get = function(info) return BuffEnough:GetProfileParam("petoverrideblessings") end,
+							set = function(info, v)
+									BuffEnough:SetProfileParam("petoverrideblessings", v)
+									BuffEnough:RunCheck()
+						  		end	
+						},
+						petblessing1 = {
+							type = "select",
+							name = L["Blessing"].."1",
+							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
+							values = blessingsDropdown,
+							set = function(info, v)
+									BuffEnough:SetProfileParam("petblessing1", v)
+									BuffEnough:RunCheck()
+						  		end	
+						},
+						petblessing2 = {
+							type = "select",
+							name = L["Blessing"].."2",
+							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
+							values = blessingsDropdown,
+							set = function(info, v)
+									BuffEnough:SetProfileParam("petblessing2", v)
+									BuffEnough:RunCheck()
+						  		end	
+						},
+						petblessing3 = {
+							type = "select",
+							name = L["Blessing"].."3",
+							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
+							values = blessingsDropdown,
+							set = function(info, v)
+									BuffEnough:SetProfileParam("petblessing3", v)
+									BuffEnough:RunCheck()
+								  end	
+						},
+						petblessing4 = {
+							type = "select",
+							name = L["Blessing"].."4",
+							disabled = function() return not BuffEnough:GetProfileParam("petoverrideblessings") end,
+							values = blessingsDropdown,
+							set = function(info, v)
+									BuffEnough:SetProfileParam("petblessing4", v)
+									BuffEnough:RunCheck()
+								  end	
+						},
+					},
 				},
 			},
 		},
@@ -506,6 +637,8 @@ BuffEnough.defaults = {
 		warnmin = 30,
 		warnthreshold = 5,
 		fade = 0,
+		overrideblessings = false,
+		petoverrideblessings = false,
 		flask = true,
 		food = true,
 		chest = false,

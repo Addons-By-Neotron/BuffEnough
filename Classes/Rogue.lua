@@ -22,9 +22,7 @@ if select(2, UnitClass("player")) ~= "ROGUE" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local Rogue = BuffEnough:GetOrCreateModule("Player")
-local thrownSlotId = GetInventorySlotInfo("RangedSlot")
-local GetInventoryItemLink = GetInventoryItemLink
-local GetItemInfo = GetItemInfo
+
 
 --[[ ---------------------------------------------------------------------------
      Check class buffs
@@ -33,12 +31,19 @@ function Rogue:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking rogue buffs") end
 
+    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blessing of Wisdom"], false, false, true)
+    
     BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
-    BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
+	BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false, nil, nil, true)
 
-    local itemLink = GetInventoryItemLink("player", thrownSlotId)
-    -- Check thrown weapon but only if they don't have the talent that uses main hand poison.
-    if itemLink and select(9, GetItemInfo(itemLink)) == "INVTYPE_THROWN" and select(5, GetTalentInfo(1, 10)) ~= 3 then
-       BuffEnough:TrackItem(L["Buffs"], L["Thrown Weapon Buff"], false, true, false, nil, nil, true)
-    end
+end
+
+
+--[[ ---------------------------------------------------------------------------
+     Formulate priority list for paladin blessings
+----------------------------------------------------------------------------- ]]
+function Rogue:GetPaladinBlessingList()
+
+    return {BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Sanctuary"]}
+
 end

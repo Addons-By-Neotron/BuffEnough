@@ -33,32 +33,37 @@ function DeathKnight:CheckClassBuffs()
     if UnitAffectingCombat("player") and not BuffEnough:HasTrackedItem(L["Buffs"], BuffEnough.spells["Strength of Earth"]) then
 		BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Horn of Winter"], false, true, false, nil, nil, true)
     end
-
-    local isGhoulSpec = GetPrimaryTalentTree() == 3
     
-    if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
+    local isGhoulSpec = select(5, GetTalentInfo(3, 20, false)) > 0
+    
+	if not UnitExists("pet") and not IsMounted() and isGhoulSpec then
         BuffEnough:TrackItem(L["Pet"], L["Pet"], false, true, false, nil, nil, true)
     end
     
     if isGhoulSpec then
     	BuffEnough.options.args.pet.guiHidden = false
         self:CheckPetBuffs()
+        self:CheckPetPaladinBlessings()
     else
     	BuffEnough.options.args.pet.guiHidden = true
     end
-
-    local shapeShiftForm = GetShapeshiftForm(false)
-    if shapeShiftForm == 0 then
-       if BuffEnough.playerIsTank then
-	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], false, true, false, nil, nil, true)
-       else
-	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Presence"], false, true, true, nil, nil, true)
-       end	  
+    
+    local isFrostPresence = GetShapeshiftForm(false) == 2
+    
+    if BuffEnough.playerIsTank then
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Frost Presence"], isFrostPresence, true, false, nil, nil, true)
     else
-       if BuffEnough.playerIsTank then
-	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], shapeShiftForm == 1, true, false, nil, nil, true)
-       else
-	  BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Blood Presence"], shapeShiftForm == 1, false, true, nil, nil, true)
-       end
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Frost Presence"], isFrostPresence, false, true, nil, nil, true)
     end
- end
+
+end
+
+--[[ ---------------------------------------------------------------------------
+     Formulate priority list for paladin blessings
+----------------------------------------------------------------------------- ]]
+function DeathKnight:GetPaladinBlessingList()
+
+    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Sanctuary"]}
+
+end
+

@@ -1,15 +1,15 @@
-## Interface: 40300
+## Interface: 30400
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
-## Author: NeoTron
-## Version: 1.2.@project-revision@
-## X-Email: neotron@gmail.com
-## X-Credits: Nikkodemus, the original author
+## Author: Nikkodemus
 ## DefaultState: enabled
 ## X-Category: Buffs
-## OptionalDeps: Ace3, LibGratuity-3.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
-## X-Embeds: Ace3, LibGratuity-3.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, 
+## OptionalDeps: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
+## X-Embeds: Ace3, LibGratuity-3.0, LibTalentQuery-1.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
 ## SavedVariables: BuffEnoughDB
+## X-Curse-Project-ID: 13579
+## X-WoWI-ID: 8953
+## X-Wago-ID: yQKyMEK7
 
 #@no-lib-strip@
 Libs\LibStub\LibStub.lua
@@ -24,6 +24,7 @@ Libs\AceEvent-3.0\AceEvent-3.0.xml
 Libs\AceBucket-3.0\AceBucket-3.0.xml
 Libs\AceTimer-3.0\AceTimer-3.0.xml
 Libs\AceLocale-3.0\AceLocale-3.0.xml
+Libs\LibTalentQuery-1.0\lib.xml
 Libs\LibGratuity-3.0\lib.xml
 Libs\LibSharedMedia-3.0\lib.xml
 Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml

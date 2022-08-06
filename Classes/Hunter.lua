@@ -33,7 +33,14 @@ function Hunter:CheckClassBuffs()
 
     if BuffEnough.debug then BuffEnough:debug("Checking hunter buffs") end
     
+    local trueshotAura = select(5, GetTalentInfo(2, 19, false))
+
+    if trueshotAura > 0 then
+        BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Trueshot Aura"], false, true, false, nil, nil, true)
+    end
+
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Aspect of the Cheetah"], false, false, true, nil, nil, true)
+    BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Aspect of the Beast"], false, false, true, nil, nil, true)
     BuffEnough:TrackItem(L["Buffs"], BuffEnough.spells["Aspect"], false, true, false, nil, nil, true)
 
     if not UnitExists("pet") and not IsMounted() then
@@ -43,4 +50,16 @@ function Hunter:CheckClassBuffs()
     end
 
     self:CheckPetBuffs()
+    self:CheckPetPaladinBlessings()
+    
+end
+
+
+--[[ ---------------------------------------------------------------------------
+     Formulate priority list for paladin blessings
+----------------------------------------------------------------------------- ]]
+function Hunter:GetPaladinBlessingList()
+
+    return {BuffEnough.spells["Blessing of Kings"], BuffEnough.spells["Blessing of Might"], BuffEnough.spells["Blessing of Wisdom"], BuffEnough.spells["Blessing of Sanctuary"]}
+
 end
