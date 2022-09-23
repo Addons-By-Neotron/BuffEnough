@@ -27,10 +27,10 @@ BuffEnough = LibStub("AceAddon-3.0"):NewAddon("BuffEnough", "AceEvent-3.0", "Ace
 function GetInspectSpecialization(unit)
 	local isnotplayer = not UnitIsUnit("player", unit)
 	local group = GetActiveTalentGroup(isnotplayer)
-	local _, _, spent1 = GetTalentTabInfo(1, isnotplayer, nil, group) or 0
-	local _, _, spent2 = GetTalentTabInfo(2, isnotplayer, nil, group) or 0
-	local _, _, spent3 = GetTalentTabInfo(3, isnotplayer, nil, group) or 0
-	return (spent1 + spent2 + spent3) > 0
+	local _, _, spent1 = GetTalentTabInfo(1, isnotplayer, nil, group)
+	local _, _, spent2 = GetTalentTabInfo(2, isnotplayer, nil, group)
+	local _, _, spent3 = GetTalentTabInfo(3, isnotplayer, nil, group)
+	return ((spent1 or 0) + (spent2 or 0) + (spent3 or 0)) > 0
 end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
