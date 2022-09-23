@@ -23,6 +23,16 @@ along with BuffEnough.	If not, see <http://www.gnu.org/licenses/>.
 
 BuffEnough = LibStub("AceAddon-3.0"):NewAddon("BuffEnough", "AceEvent-3.0", "AceBucket-3.0", "AceTimer-3.0", "AceConsole-3.0")
 
+-- compatibility for LibTalentQuery. Kind of ugly, but easy enough.
+function GetInspectSpecialization(unit)
+	local isnotplayer = not UnitIsUnit("player", unit)
+	local group = GetActiveTalentGroup(isnotplayer)
+	local _, _, spent1 = GetTalentTabInfo(1, isnotplayer, nil, group) or 0
+	local _, _, spent2 = GetTalentTabInfo(2, isnotplayer, nil, group) or 0
+	local _, _, spent3 = GetTalentTabInfo(3, isnotplayer, nil, group) or 0
+	return (spent1 + spent2 + spent3) > 0
+end
+
 local L = LibStub("AceLocale-3.0"):GetLocale("BuffEnough")
 local TQ = LibStub:GetLibrary("LibTalentQuery-1.0")
 local G = LibStub:GetLibrary("LibGratuity-3.0")
@@ -57,12 +67,12 @@ function BuffEnough:OnInitialize()
 	self.talentsAvailable = {}
 	self.lastBuffer = {}
 	self.playerIsTank = false
-		
+
 	self.trackedItems = {}
 	self.results = {}
 	self.isBuffEnough = true
 	self.isBuffWarning = false
-	
+
 	self.Anchor = nil
 	self.Display = nil
 	self.Grip = nil
@@ -72,7 +82,7 @@ function BuffEnough:OnInitialize()
 	self.timeSinceBuffEnough = 0
 	self.currentCustomCategory = nil
 	self.currentCustomAction = nil
-	
+
 	self.unitInventoryChangedBucket = nil
 	self.updateInventoryAlertsBucket = nil
 
@@ -83,13 +93,13 @@ function BuffEnough:OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileDeleted","OnProfileChanged")
 	self.db.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-	
+
 	TQ.RegisterCallback(self, "TalentQuery_Ready")
-	
+
 	self.options.args.profile = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	LibStub("AceConfig-3.0"):RegisterOptionsTable(L["BuffEnough"], self.options, {L["buffenough"], L["be"]})
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(L["BuffEnough"], L["BuffEnough"])
-	
+
 	-- Set up the data broker object
 	self.dobj = LDB:NewDataObject(L["BuffEnough"], {
 		type = "data source",
@@ -118,20 +128,20 @@ function BuffEnough:OnInitialize()
 			else
 				txt = L["Buff Enough"]..VER..self.tooltip..L["Hint"]
 			end
-			
+
 			if tooltip and tooltip.AddLine then
 				tooltip:AddLine(txt)
 			end
 		end
 	})
-	
+
 	LDB.RegisterCallback(self, "LibDataBroker_AttributeChanged_BuffEnough_text", "UpdateDisplay")
 	LDB.RegisterCallback(self, "LibDataBroker_AttributeChanged_BuffEnough_buffenoughtooltiptext", "UpdateDisplay")
-	
+
 	-- Set up display
 	self:CreateFrame()
 	self:DisplayCustomBuffs()
-	
+
 	-- Register the events that might enable the addon
 	self:RegisterBucketEvent("GROUP_ROSTER_UPDATE", .2, "CheckRaidChange")
 
@@ -144,7 +154,7 @@ end
 function BuffEnough:OnEnable()
 
 	local isSolo = GetNumGroupMembers() == 0
-	
+
 	if isSolo and not self:GetProfileParam("solo") then
 		self:SetProfileParam("enable", false)
 	end
@@ -160,26 +170,26 @@ end
 	 Enables addon
 ----------------------------------------------------------------------------- ]]
 function BuffEnough:DoEnable()
-	
-	self:SetProfileParam("enable", true) 
-	
+
+	self:SetProfileParam("enable", true)
+
 	self:RegisterEvent("UNIT_AURA", "CheckBuffOrPetChange")
 	self:RegisterEvent("UNIT_PET", "CheckBuffOrPetChange")
 	self:RegisterEvent("ZONE_CHANGED", "RunCheck")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "RunCheck")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "RunCheck")
 	self:RegisterEvent("READY_CHECK")
-		
+
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "RecordLastBuffer")
 
 	self.unitInventoryChangedBucket = self:RegisterBucketEvent("UNIT_INVENTORY_CHANGED", .2, "RunCheck")
 	self.updateInventoryAlertsBucket = self:RegisterBucketEvent("UPDATE_INVENTORY_ALERTS", .2, "RunCheck")
-	
+
 	-- Watch main tanks
 	if oRA then
 		self:RegisterEvent("oRA_MainTankUpdate", "RunCheck")
 	end
-	
+
 	self:SetAnchors(true)
 	self:UpdateVisible()
 	self:RunCheck()
@@ -304,9 +314,7 @@ function BuffEnough:ScanRaidParty()
 				end
 
 				if (unitClass == "PALADIN") then
-
 					self:GetTalents(unit)
-
 				end
 
 			end

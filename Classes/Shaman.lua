@@ -35,7 +35,7 @@ function Shaman:CheckClassBuffs()
     
     BuffEnough:TrackItem(L["Buffs"], L["Mainhand Buff"], false, true, false, nil, nil, true)
 	
-	if OffhandHasWeapon() then
+	if C_PaperDollInfo.OffhandHasWeapon() then
 		BuffEnough:TrackItem(L["Buffs"], L["Offhand Buff"], false, true, false)
 	end
 
