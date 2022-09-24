@@ -523,7 +523,7 @@ function BuffEnough:CheckGear()
 	end
 
 	-- Check for temporary weapon enchants
-	local hasMHEnchant, mhExp, _, hasOHEnchant, ohExp = GetWeaponEnchantInfo()
+	local hasMHEnchant, mhExp, _, _, hasOHEnchant, ohExp = GetWeaponEnchantInfo()
 	
 	if mhExp then mhExp = mhExp / 1000 end
 	if ohExp then ohExp = ohExp / 1000 end
