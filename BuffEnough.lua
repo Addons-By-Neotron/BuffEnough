@@ -882,7 +882,9 @@ function BuffEnough:GetTalents(unit)
 		if UnitIsUnit(unit, "player") then
 			self:TalentQuery_Ready(_, name)
 		else
-			TQ:Query(unit)
+			if CheckInteractDistance(unit, 4) then
+				TQ:Query(unit)
+			end
 		end
 
 	elseif next(self.talents[name]) then

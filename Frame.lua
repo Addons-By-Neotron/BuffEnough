@@ -30,7 +30,7 @@ function BuffEnough:CreateFrame()
         -- Anchor
 	self.Anchor = CreateFrame("Frame", "BuffEnoughAnchor", UIParent)
 	self.Anchor:SetResizable(true)
-	self.Anchor:SetMinResize(20, 20)
+	self.Anchor:SetResizeBounds(20, 20)
 	self.Anchor:SetMovable(true)
 	self.Anchor:SetPoint("CENTER", UIParent, "CENTER")
 	self.Anchor:SetHeight(50)
