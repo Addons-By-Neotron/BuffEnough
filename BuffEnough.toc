@@ -1,5 +1,5 @@
-## Interface: 100205
-## Interface-Wrath: 30401
+## Interface: 100207
+## Interface-Wrath: 40400
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
 ## Author: Nikkodemus
