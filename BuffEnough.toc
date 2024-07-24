@@ -1,4 +1,4 @@
-## Interface: 100207
+## Interface: 110000
 ## Interface-Wrath: 40400
 ## Title: BuffEnough
 ## Notes: Personal buff monitor - are you buff enough?
